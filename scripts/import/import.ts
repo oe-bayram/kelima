@@ -1,12 +1,22 @@
 import { readFileSync, writeFileSync } from 'node:fs';
 import { resolve } from 'node:path';
 
+import { Amplify } from 'aws-amplify';
+import { signIn } from 'aws-amplify/auth';
+
 import { buildAutoChapters, buildWordGroupChapters } from './chapters';
 import { ImportReport } from './report';
 import { transformEntries } from './transform';
 import type { ChapterRow, VocabularyChapterRow } from './types';
 import { createIdAllocator, parseArgs } from './util';
 import { validateSource } from './validate';
+import { makeClient, writeAll, writeContentVersion } from './write';
+
+// WICHTIG: statische Top-Level-Imports (kein `await import(...)`). Dynamische
+// Imports von aws-amplify vs. aws-amplify/data spalten unter tsx die
+// @aws-amplify/core-Singleton-Instanz auf → `generateClient` sähe die
+// `Amplify.configure()`-Konfiguration nicht ("Amplify has not been configured").
+// Der Offline-Dry-Run ruft diese Module nur nie auf (kein configure/Netz).
 
 const DEFAULT_FILE = 'data/wortliste_b1_struktur.json';
 
@@ -79,10 +89,6 @@ async function main(): Promise<void> {
 
   // 4) Schreiben (nur außerhalb Dry-Run)
   if (!dryRun) {
-    const { Amplify } = await import('aws-amplify');
-    const { signIn } = await import('aws-amplify/auth');
-    const { makeClient, writeAll, writeContentVersion } = await import('./write');
-
     const outputsPath = resolve(process.cwd(), 'amplify_outputs.json');
     let outputs: Parameters<typeof Amplify.configure>[0];
     try {

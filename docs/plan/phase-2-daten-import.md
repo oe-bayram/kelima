@@ -59,7 +59,7 @@ import.ts            # CLI: --file --version --dry-run --only entries|forms|exam
 ## Akzeptanzkriterien
 
 - Schema deployt; alle Modelle, Enums, Indizes und Auth-Regeln wie Masterplan §4.
-- Import läuft mit einem Befehl (`pnpm import -- --file data/wortliste_b1_struktur.json --version 2026-07-XX`), ist idempotent und liefert einen vollständigen Report.
+- Import läuft mit einem Befehl (`pnpm import:data -- --file data/wortliste_b1_struktur.json --version 2026-07-XX`), ist idempotent und liefert einen vollständigen Report.
 - Dry-Run funktioniert; unbekannte Merkmale werden gemeldet statt verworfen.
 - Alle Zähler stimmen mit den Quelldaten überein; Stichproben je Wortart korrekt.
 - Nutzerisolierung und Read-only-Content per Negativtest belegt.

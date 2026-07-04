@@ -84,7 +84,7 @@
     "format": "prettier --write .",
     "doctor": "expo-doctor",
     "typecheck:scripts": "tsc --noEmit -p scripts/import/tsconfig.json",
-    "import": "tsx scripts/import/import.ts"
+    "import:data": "tsx scripts/import/import.ts"
   },
   "jest": {
     "preset": "jest-expo",
