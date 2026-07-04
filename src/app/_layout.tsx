@@ -1,18 +1,63 @@
-import { DarkTheme, DefaultTheme, ThemeProvider } from 'expo-router';
-import * as SplashScreen from 'expo-splash-screen';
-import { useColorScheme } from 'react-native';
+import '@/lib/amplify'; // MUSS zuerst laufen: Polyfills + Amplify.configure()
+import '@/global.css';
 
-import { AnimatedSplashOverlay } from '@/components/animated-icon';
-import AppTabs from '@/components/app-tabs';
+import { Authenticator, useAuthenticator } from '@aws-amplify/ui-react-native';
+import { PersistQueryClientProvider } from '@tanstack/react-query-persist-client';
+import { DarkTheme, DefaultTheme, Stack, ThemeProvider } from 'expo-router';
+import * as SplashScreen from 'expo-splash-screen';
+import { useEffect } from 'react';
+import { I18nextProvider } from 'react-i18next';
+import { useColorScheme } from 'react-native';
+import { GestureHandlerRootView } from 'react-native-gesture-handler';
+import { SafeAreaProvider } from 'react-native-safe-area-context';
+
+import i18n from '@/lib/i18n';
+import { persistOptions, queryClient } from '@/lib/queryClient';
 
 SplashScreen.preventAutoHideAsync();
 
-export default function TabLayout() {
+export default function RootLayout() {
   const colorScheme = useColorScheme();
+
   return (
-    <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
-      <AnimatedSplashOverlay />
-      <AppTabs />
-    </ThemeProvider>
+    <GestureHandlerRootView style={{ flex: 1 }}>
+      <SafeAreaProvider>
+        <PersistQueryClientProvider client={queryClient} persistOptions={persistOptions}>
+          <I18nextProvider i18n={i18n}>
+            <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
+              <Authenticator.Provider>
+                <RootNavigator />
+              </Authenticator.Provider>
+            </ThemeProvider>
+          </I18nextProvider>
+        </PersistQueryClientProvider>
+      </SafeAreaProvider>
+    </GestureHandlerRootView>
+  );
+}
+
+/**
+ * Auth-Gate: `Stack.Protected` (das SDK-57-Idiom) blendet abhängig vom
+ * Login-Status die (app)- oder (auth)-Gruppe ein. Der Splash bleibt sichtbar,
+ * bis Amplify den Auth-Status aufgelöst hat.
+ */
+function RootNavigator() {
+  const { user, authStatus } = useAuthenticator((context) => [context.user, context.authStatus]);
+
+  useEffect(() => {
+    if (authStatus !== 'configuring') {
+      void SplashScreen.hideAsync();
+    }
+  }, [authStatus]);
+
+  return (
+    <Stack screenOptions={{ headerShown: false }}>
+      <Stack.Protected guard={!!user}>
+        <Stack.Screen name="(app)" />
+      </Stack.Protected>
+      <Stack.Protected guard={!user}>
+        <Stack.Screen name="(auth)" />
+      </Stack.Protected>
+    </Stack>
   );
 }

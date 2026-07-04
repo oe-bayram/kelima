@@ -1,0 +1,13 @@
+node_modules
+.expo
+dist
+android
+ios
+coverage
+amplify/.amplify
+docs
+.agents
+data
+assets
+pnpm-lock.yaml
+amplify_outputs*.json

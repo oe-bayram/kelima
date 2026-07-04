@@ -1,0 +1,32 @@
+{
+  "appName": "Kelima",
+  "tagline": "Almanca B1 – Kelime öğren",
+  "tabs": {
+    "home": "Başlangıç",
+    "chapters": "Bölümler",
+    "stats": "İstatistik",
+    "settings": "Ayarlar"
+  },
+  "actions": {
+    "signIn": "Giriş yap",
+    "signOut": "Çıkış yap",
+    "start": "Hadi başla",
+    "retry": "Tekrar dene"
+  },
+  "settings": {
+    "title": "Ayarlar",
+    "language": "Dil",
+    "languageGerman": "Deutsch",
+    "languageTurkish": "Türkçe",
+    "account": "Hesap"
+  },
+  "home": {
+    "welcome": "Hoş geldin",
+    "placeholder": "Kontrol paneli 3. aşamada gelecek."
+  },
+  "screens": {
+    "chapters": "Bölümler",
+    "stats": "İstatistik",
+    "comingSoon": "Yakında"
+  }
+}

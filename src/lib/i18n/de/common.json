@@ -1,0 +1,32 @@
+{
+  "appName": "Kelima",
+  "tagline": "Deutsch B1 – Vokabeln lernen",
+  "tabs": {
+    "home": "Start",
+    "chapters": "Kapitel",
+    "stats": "Statistik",
+    "settings": "Einstellungen"
+  },
+  "actions": {
+    "signIn": "Anmelden",
+    "signOut": "Abmelden",
+    "start": "Los geht's",
+    "retry": "Erneut versuchen"
+  },
+  "settings": {
+    "title": "Einstellungen",
+    "language": "Sprache",
+    "languageGerman": "Deutsch",
+    "languageTurkish": "Türkçe",
+    "account": "Konto"
+  },
+  "home": {
+    "welcome": "Willkommen",
+    "placeholder": "Dashboard folgt in Phase 3."
+  },
+  "screens": {
+    "chapters": "Kapitel",
+    "stats": "Statistik",
+    "comingSoon": "Bald verfügbar"
+  }
+}
