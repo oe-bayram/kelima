@@ -55,6 +55,7 @@
     "@aws-amplify/backend-cli": "^1.8.3",
     "@jest/globals": "29.7.0",
     "@types/jest": "^29.5.14",
+    "@types/node": "^26.1.0",
     "@types/react": "~19.2.2",
     "aws-cdk-lib": "^2.244.0",
     "constructs": "^10.6.0",
@@ -67,7 +68,8 @@
     "react-test-renderer": "19.2.3",
     "tailwindcss": "^3.4.19",
     "tsx": "^4.23.0",
-    "typescript": "^6.0.3"
+    "typescript": "^6.0.3",
+    "zod": "^4.4.3"
   },
   "scripts": {
     "start": "expo start",
@@ -80,10 +82,16 @@
     "test": "jest --watchAll",
     "test:ci": "jest --ci --coverage=false",
     "format": "prettier --write .",
-    "doctor": "expo-doctor"
+    "doctor": "expo-doctor",
+    "typecheck:scripts": "tsc --noEmit -p scripts/import/tsconfig.json",
+    "import": "tsx scripts/import/import.ts"
   },
   "jest": {
     "preset": "jest-expo",
+    "testMatch": [
+      "<rootDir>/tests/**/*-test.{ts,tsx}",
+      "<rootDir>/tests/**/*.{test,spec}.{ts,tsx}"
+    ],
     "moduleNameMapper": {
       "^@/(.*)$": "<rootDir>/src/$1"
     },

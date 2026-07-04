@@ -47,3 +47,6 @@ node_modules
 .amplify
 amplify_outputs*
 amplifyconfiguration*
+
+# import script runtime artifact
+import-report.json
