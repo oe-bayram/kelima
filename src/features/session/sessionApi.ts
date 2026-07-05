@@ -4,10 +4,19 @@ import { dataClient } from '@/lib/dataClient';
 import type { Rating, SessionType } from '@/lib/enums';
 
 /**
- * Rohe, idempotente Amplify-Schreibfunktionen für Sessions/Bewertungen.
- * Getrennt von React (kein Hook), damit die Offline-Outbox (§4) dieselben
- * Funktionen zum Nachspielen verwenden kann.
+ * Sessions/Bewertungen als **Builder** (erzeugen serialisierbare Amplify-Inputs
+ * mit deterministischen IDs) + **Writer** (idempotentes Schreiben). Die Trennung
+ * erlaubt es der Offline-Outbox (`outbox.ts`), dieselben Inputs zu queuen und
+ * später unverändert nachzuspielen.
  */
+
+// Exakte Amplify-Input-Typen (nur serialisierbare Skalar-Felder).
+export type ItemInput = Parameters<typeof dataClient.models.LearningSessionItem.create>[0];
+export type ProgressInput = Parameters<
+  typeof dataClient.models.UserVocabularyProgress.create
+>[0] & { id: string };
+export type SessionCreateInput = Parameters<typeof dataClient.models.LearningSession.create>[0];
+export type SessionFinalizeInput = Parameters<typeof dataClient.models.LearningSession.update>[0];
 
 type AmplifyErrors = { message?: string }[] | undefined;
 
@@ -21,6 +30,20 @@ function isAlreadyExists(errors: AmplifyErrors): boolean {
   return m.includes('already exists') || m.includes('conditional request failed');
 }
 
+/** Heuristik: Netz-/Offline-Fehler (→ Outbox) vs. echter Fehler (→ Rollback). */
+export function isNetworkError(e: unknown): boolean {
+  const m = (e instanceof Error ? e.message : String(e)).toLowerCase();
+  return (
+    m.includes('network') ||
+    m.includes('failed to fetch') ||
+    m.includes('timeout') ||
+    m.includes('offline') ||
+    m.includes('connection')
+  );
+}
+
+// --- Builder -----------------------------------------------------------------
+
 export interface RatingWrite {
   entryId: string;
   rating: Rating;
@@ -32,12 +55,13 @@ export interface RatingWrite {
   answeredAt: number;
 }
 
-/** Schreibt eine Bewertung: Session-Item (append-only) + Progress-Upsert. */
-export async function writeRating(w: RatingWrite): Promise<void> {
+/** Baut Session-Item- + Progress-Input für eine Bewertung (userId für Progress-PK). */
+export async function buildRatingInputs(
+  w: RatingWrite,
+): Promise<{ item: ItemInput; progress: ProgressInput }> {
   const userId = await currentUserId();
   const nowIso = new Date(w.answeredAt).toISOString();
-
-  const itemRes = await dataClient.models.LearningSessionItem.create({
+  const item: ItemInput = {
     id: sessionItemId(w.sessionId, w.entryId, w.answeredAt),
     sessionId: w.sessionId,
     entryId: w.entryId,
@@ -45,37 +69,10 @@ export async function writeRating(w: RatingWrite): Promise<void> {
     shownAt: nowIso,
     answeredAt: nowIso,
     clientTimestamp: nowIso,
-  });
-  if (itemRes.errors?.length && !isAlreadyExists(itemRes.errors)) {
-    throw new Error(errMsg(itemRes.errors));
-  }
-
-  // Progress-Upsert per deterministischer ID: update-first, sonst create,
-  // bei Race (existiert bereits) → erneut update.
+  };
   const patch = applyRating(w.prev, w.rating, w.type, w.answeredAt);
-  const id = progressId(userId, w.entryId);
-
-  const updated = await dataClient.models.UserVocabularyProgress.update({
-    id,
-    entryId: w.entryId,
-    ...patch,
-  });
-  if (updated.data && !updated.errors?.length) return;
-
-  const created = await dataClient.models.UserVocabularyProgress.create({
-    id,
-    entryId: w.entryId,
-    ...patch,
-  });
-  if (!created.errors?.length) return;
-  if (!isAlreadyExists(created.errors)) throw new Error(errMsg(created.errors));
-
-  const retry = await dataClient.models.UserVocabularyProgress.update({
-    id,
-    entryId: w.entryId,
-    ...patch,
-  });
-  if (retry.errors?.length) throw new Error(errMsg(retry.errors));
+  const progress: ProgressInput = { id: progressId(userId, w.entryId), entryId: w.entryId, ...patch };
+  return { item, progress };
 }
 
 export interface SessionCreate {
@@ -85,15 +82,13 @@ export interface SessionCreate {
   startedAt: number;
 }
 
-/** Legt die LearningSession an (idempotent über die stabile sessionId). */
-export async function createSession(s: SessionCreate): Promise<void> {
-  const res = await dataClient.models.LearningSession.create({
+export function buildSessionCreateInput(s: SessionCreate): SessionCreateInput {
+  return {
     id: s.sessionId,
     sessionType: s.type,
     chapterId: s.chapterId,
     startedAt: new Date(s.startedAt).toISOString(),
-  });
-  if (res.errors?.length && !isAlreadyExists(res.errors)) throw new Error(errMsg(res.errors));
+  };
 }
 
 export interface SessionFinalize {
@@ -103,13 +98,41 @@ export interface SessionFinalize {
   endedAt: number;
 }
 
-/** Schließt die LearningSession ab (Zähler + endedAt). */
-export async function finalizeSession(s: SessionFinalize): Promise<void> {
-  const res = await dataClient.models.LearningSession.update({
+export function buildSessionFinalizeInput(s: SessionFinalize): SessionFinalizeInput {
+  return {
     id: s.sessionId,
     endedAt: new Date(s.endedAt).toISOString(),
     totalCount: s.totalCount,
     correctCount: s.correctCount,
-  });
+  };
+}
+
+// --- Writer (idempotent) -----------------------------------------------------
+
+export async function writeItemInput(input: ItemInput): Promise<void> {
+  const res = await dataClient.models.LearningSessionItem.create(input);
+  if (res.errors?.length && !isAlreadyExists(res.errors)) throw new Error(errMsg(res.errors));
+}
+
+/** Progress-Upsert: update-first, sonst create, bei Race (existiert) → update. */
+export async function writeProgressInput(input: ProgressInput): Promise<void> {
+  const updated = await dataClient.models.UserVocabularyProgress.update(input);
+  if (updated.data && !updated.errors?.length) return;
+
+  const created = await dataClient.models.UserVocabularyProgress.create(input);
+  if (!created.errors?.length) return;
+  if (!isAlreadyExists(created.errors)) throw new Error(errMsg(created.errors));
+
+  const retry = await dataClient.models.UserVocabularyProgress.update(input);
+  if (retry.errors?.length) throw new Error(errMsg(retry.errors));
+}
+
+export async function writeSessionCreateInput(input: SessionCreateInput): Promise<void> {
+  const res = await dataClient.models.LearningSession.create(input);
+  if (res.errors?.length && !isAlreadyExists(res.errors)) throw new Error(errMsg(res.errors));
+}
+
+export async function writeSessionFinalizeInput(input: SessionFinalizeInput): Promise<void> {
+  const res = await dataClient.models.LearningSession.update(input);
   if (res.errors?.length) throw new Error(errMsg(res.errors));
 }

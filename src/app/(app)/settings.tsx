@@ -5,6 +5,7 @@ import { Pressable, View } from 'react-native';
 import { Button } from '@/components/ui/button';
 import { Screen } from '@/components/ui/screen';
 import { Text } from '@/components/ui/text';
+import { pendingRatingCount, replayOutbox, useOutboxStore } from '@/features/session/outbox';
 import { useSettingsStore } from '@/features/settings/useSettingsStore';
 import { SUPPORTED_LANGUAGES } from '@/lib/i18n';
 import { queryClient } from '@/lib/queryClient';
@@ -13,6 +14,7 @@ export default function SettingsScreen() {
   const { t } = useTranslation();
   const language = useSettingsStore((state) => state.language);
   const setLanguage = useSettingsStore((state) => state.setLanguage);
+  const pending = pendingRatingCount(useOutboxStore((state) => state.ops));
 
   return (
     <Screen>
@@ -41,6 +43,18 @@ export default function SettingsScreen() {
             })}
           </View>
         </View>
+
+        {pending > 0 ? (
+          <View className="gap-3">
+            <Text variant="subtitle">{t('settings.sync')}</Text>
+            <Text variant="caption">{t('settings.pendingSync', { count: pending })}</Text>
+            <Button
+              variant="outline"
+              label={t('settings.syncNow')}
+              onPress={() => void replayOutbox()}
+            />
+          </View>
+        ) : null}
 
         <View className="mt-auto pb-4">
           <Button

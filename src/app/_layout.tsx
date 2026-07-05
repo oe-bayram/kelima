@@ -12,10 +12,16 @@ import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 
 import { useAuthSession } from '@/features/auth/useAuthSession';
+import { startOutboxAutoReplay } from '@/features/session/outbox';
 import i18n from '@/lib/i18n';
+import { setupOnlineManager } from '@/lib/onlineManager';
 import { persistOptions, queryClient } from '@/lib/queryClient';
 
 SplashScreen.preventAutoHideAsync();
+
+// Netzstatus an TanStack koppeln und die Offline-Outbox bei Reconnect leeren.
+setupOnlineManager();
+startOutboxAutoReplay();
 
 export default function RootLayout() {
   const colorScheme = useColorScheme();

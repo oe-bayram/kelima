@@ -29,11 +29,20 @@ function prog(overrides: Partial<ProgressLike> = {}): ProgressLike {
 }
 
 describe('ratingToStatus', () => {
-  it('bildet jede Bewertung identisch auf den Status ab', () => {
+  it('bildet nicht_gewusst/schwer/kann_ich identisch ab', () => {
     expect(ratingToStatus('nicht_gewusst')).toBe('nicht_gewusst');
     expect(ratingToStatus('schwer')).toBe('schwer');
     expect(ratingToStatus('kann_ich')).toBe('kann_ich');
-    expect(ratingToStatus('sicher')).toBe('sicher');
+  });
+
+  it('sicher promoviert erst nach 2 konsekutiven korrekten Bewertungen', () => {
+    // kein/kein-korrektes Vorher → nur kann_ich
+    expect(ratingToStatus('sicher')).toBe('kann_ich');
+    expect(ratingToStatus('sicher', prog({ lastRating: 'nicht_gewusst' }))).toBe('kann_ich');
+    expect(ratingToStatus('sicher', prog({ lastRating: 'schwer' }))).toBe('kann_ich');
+    // vorige Bewertung war korrekt → sicher
+    expect(ratingToStatus('sicher', prog({ lastRating: 'kann_ich' }))).toBe('sicher');
+    expect(ratingToStatus('sicher', prog({ lastRating: 'sicher' }))).toBe('sicher');
   });
 });
 
@@ -143,6 +152,24 @@ describe('applyRating', () => {
     expect(p.hardCount).toBe(2);
     expect(p.lastSeenAt).toBe(new Date(NOW).toISOString());
     expect(p.lastTestedAt).toBe('2025-12-02T00:00:00.000Z'); // unverändert
+  });
+
+  it('sicher ohne vorherige korrekte Bewertung bleibt kann_ich (dueAt +3 Tage)', () => {
+    const p = applyRating(undefined, 'sicher', 'lernen', NOW);
+    expect(p.status).toBe('kann_ich');
+    expect(p.intervalDays).toBe(3);
+    expect(p.dueAt).toBe(new Date(NOW + 3 * DAY).toISOString());
+    expect(p.correctCount).toBe(1); // Rohbewertung zählt trotzdem als korrekt
+    expect(p.lastRating).toBe('sicher');
+  });
+
+  it('sicher nach vorheriger korrekter Bewertung promoviert zu sicher (dueAt +7 Tage)', () => {
+    const prev = prog({ lastRating: 'kann_ich', seenCount: 1, correctCount: 1 });
+    const p = applyRating(prev, 'sicher', 'lernen', NOW);
+    expect(p.status).toBe('sicher');
+    expect(p.intervalDays).toBe(7);
+    expect(p.dueAt).toBe(new Date(NOW + 7 * DAY).toISOString());
+    expect(p.correctCount).toBe(2);
   });
 });
 

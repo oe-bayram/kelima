@@ -1,7 +1,8 @@
 import { router } from 'expo-router';
 import { useCallback, useEffect } from 'react';
 
-import { finalizeSession } from '@/features/session/sessionApi';
+import { dispatchOp } from '@/features/session/outbox';
+import { buildSessionFinalizeInput } from '@/features/session/sessionApi';
 import { useRateVocab } from '@/features/session/useRateVocab';
 import { useSessionStore } from '@/features/session/useSessionStore';
 import { useProgressMap } from '@/hooks/userData';
@@ -41,13 +42,12 @@ export function useSessionRunner() {
     const correctCount = Object.values(ratings).filter(
       (r) => r === 'kann_ich' || r === 'sicher',
     ).length;
-    void finalizeSession({
-      sessionId,
-      totalCount: queue.length,
-      correctCount,
-      endedAt,
+    void dispatchOp({
+      key: `sessionFinalize:${sessionId}`,
+      kind: 'sessionFinalize',
+      input: buildSessionFinalizeInput({ sessionId, totalCount: queue.length, correctCount, endedAt }),
     }).catch(() => {
-      /* Offline: Finalisierung ist unkritisch; Bewertungen sind geschrieben. */
+      /* Offline: liegt in der Outbox und wird bei Reconnect nachgespielt. */
     });
     finish(new Date(endedAt).toISOString());
     router.replace('/session/summary');

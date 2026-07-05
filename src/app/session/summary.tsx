@@ -5,7 +5,8 @@ import { Pressable, ScrollView, View } from 'react-native';
 import { Button } from '@/components/ui/button';
 import { Screen } from '@/components/ui/screen';
 import { Text } from '@/components/ui/text';
-import { createSession } from '@/features/session/sessionApi';
+import { dispatchOp } from '@/features/session/outbox';
+import { buildSessionCreateInput } from '@/features/session/sessionApi';
 import { buildQueue } from '@/features/session/sessionLogic';
 import { useSessionStore } from '@/features/session/useSessionStore';
 import { useVocabEntry } from '@/hooks/content';
@@ -57,7 +58,11 @@ export default function SummaryScreen() {
       sourceLabel: t('session.source.problem'),
       queue: buildQueue(weakIds, 0),
     });
-    void createSession({ sessionId, type: 'lernen', startedAt: Date.now() }).catch(() => {});
+    void dispatchOp({
+      key: `sessionCreate:${sessionId}`,
+      kind: 'sessionCreate',
+      input: buildSessionCreateInput({ sessionId, type: 'lernen', startedAt: Date.now() }),
+    }).catch(() => {});
     router.replace('/session/learn');
   };
 

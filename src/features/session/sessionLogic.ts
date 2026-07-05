@@ -50,14 +50,23 @@ export const DUE_INTERVALS: Record<Rating, number> = {
   sicher: 7,
 };
 
-/** v1 §13.2: Bewertung → Status. Rating ⊂ VocabularyStatus (ohne `neu`). */
-export function ratingToStatus(rating: Rating): VocabularyStatus {
+/**
+ * v1 §13.2 + Could-have: Bewertung → Status. `sicher` promoviert erst dann zum
+ * Status `sicher`, wenn bereits die vorige Bewertung korrekt war (= 2 konsekutive
+ * korrekte Bewertungen) – sonst nur `kann_ich`. `prev.lastRating` dient als
+ * Streak-Proxy, daher ohne zusätzliches Schema-Feld. Rückgabe ⊂ VocabularyStatus.
+ */
+export function ratingToStatus(rating: Rating, prev?: ProgressLike): Rating {
+  if (rating === 'sicher') {
+    const prevCorrect = prev?.lastRating === 'kann_ich' || prev?.lastRating === 'sicher';
+    return prevCorrect ? 'sicher' : 'kann_ich';
+  }
   return rating;
 }
 
-/** Nächster Fälligkeitszeitpunkt als ISO-String. `now` = Epoch-Millisekunden. */
-export function computeDueAt(rating: Rating, now: number): string {
-  return new Date(now + DUE_INTERVALS[rating] * DAY_MS).toISOString();
+/** Nächster Fälligkeitszeitpunkt als ISO-String (nach resultierendem Status). */
+export function computeDueAt(status: Rating, now: number): string {
+  return new Date(now + DUE_INTERVALS[status] * DAY_MS).toISOString();
 }
 
 const n = (v?: number | null): number => v ?? 0;
@@ -94,11 +103,12 @@ export function applyRating(
   const nowIso = new Date(now).toISOString();
   const isLearn = type === 'lernen';
   const isCorrect = rating === 'kann_ich' || rating === 'sicher';
+  const status = ratingToStatus(rating, prev);
 
   return {
-    status: ratingToStatus(rating),
-    dueAt: computeDueAt(rating, now),
-    intervalDays: DUE_INTERVALS[rating],
+    status,
+    dueAt: computeDueAt(status, now),
+    intervalDays: DUE_INTERVALS[status],
     seenCount: n(prev?.seenCount) + (isLearn ? 1 : 0),
     testCount: n(prev?.testCount) + (isLearn ? 0 : 1),
     correctCount: n(prev?.correctCount) + (isCorrect ? 1 : 0),

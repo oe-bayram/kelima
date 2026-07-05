@@ -1,6 +1,8 @@
-import { useMutation, useQueryClient } from '@tanstack/react-query';
+import { onlineManager, useMutation, useQueryClient } from '@tanstack/react-query';
 
-import { writeRating } from '@/features/session/sessionApi';
+import { sessionItemId } from '@/features/session/ids';
+import { dispatchOp } from '@/features/session/outbox';
+import { buildRatingInputs } from '@/features/session/sessionApi';
 import { applyRating } from '@/features/session/sessionLogic';
 import type { ProgressRow } from '@/lib/dataClient';
 import type { Rating, SessionType } from '@/lib/enums';
@@ -23,24 +25,32 @@ interface RateContext {
 }
 
 /**
- * Bewertungs-Mutation: schreibt Session-Item + Progress-Upsert (via
- * `writeRating`) und aktualisiert die ProgressMap optimistisch. Muster wie
- * `useToggleFavorite`. Wichtig: onMutate UND der Server-Write basieren beide auf
- * demselben `variables.prev`, damit die Zähler nicht doppelt hochgezählt werden.
+ * Bewertungs-Mutation: schreibt Session-Item + Progress-Upsert und aktualisiert
+ * die ProgressMap optimistisch. Offline/Netzfehler landen in der Outbox
+ * (`dispatchOp` schluckt sie), sodass das Optimistic-Update **bestehen bleibt**;
+ * nur echte Fehler lösen einen Rollback aus. onMutate UND der Server-Write
+ * basieren auf demselben `variables.prev`, damit Zähler nicht doppelt zählen.
  */
 export function useRateVocab() {
   const qc = useQueryClient();
 
   return useMutation<void, Error, RateVariables, RateContext>({
-    mutationFn: (v) =>
-      writeRating({
+    mutationFn: async (v) => {
+      const { item, progress } = await buildRatingInputs({
         entryId: v.entryId,
         rating: v.rating,
         sessionId: v.sessionId,
         type: v.type,
         answeredAt: v.answeredAt,
         prev: v.prev ?? undefined,
-      }),
+      });
+      await dispatchOp({
+        key: `item:${sessionItemId(v.sessionId, v.entryId, v.answeredAt)}`,
+        kind: 'item',
+        input: item,
+      });
+      await dispatchOp({ key: `progress:${progress.id}`, kind: 'progress', input: progress });
+    },
 
     onMutate: async (v) => {
       await qc.cancelQueries({ queryKey: queryKeys.progress });
@@ -54,11 +64,14 @@ export function useRateVocab() {
     },
 
     onError: (_err, _v, ctx) => {
+      // Nur echte Fehler landen hier (Netzfehler → Outbox in dispatchOp).
       if (ctx?.prev) qc.setQueryData(queryKeys.progress, ctx.prev);
     },
 
     onSettled: () => {
-      void qc.invalidateQueries({ queryKey: queryKeys.progress });
+      // Offline nicht invalidieren (würde das Optimistic-Update verwerfen);
+      // nach dem Reconnect lädt replayOutbox die ProgressMap neu.
+      if (onlineManager.isOnline()) void qc.invalidateQueries({ queryKey: queryKeys.progress });
     },
   });
 }

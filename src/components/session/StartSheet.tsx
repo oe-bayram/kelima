@@ -12,7 +12,8 @@ import { useColorScheme, View } from 'react-native';
 import { Button } from '@/components/ui/button';
 import { Segmented, type SegmentedOption } from '@/components/ui/segmented';
 import { Text } from '@/components/ui/text';
-import { createSession } from '@/features/session/sessionApi';
+import { dispatchOp } from '@/features/session/outbox';
+import { buildSessionCreateInput } from '@/features/session/sessionApi';
 import { buildQueue } from '@/features/session/sessionLogic';
 import { useSessionStore } from '@/features/session/useSessionStore';
 import type { SessionType } from '@/lib/enums';
@@ -84,11 +85,13 @@ export const StartSheet = forwardRef<StartSheetHandle>(function StartSheet(_prop
       queue,
     });
     modalRef.current?.dismiss();
-    void createSession({ sessionId, type, chapterId: config.chapterId, startedAt: Date.now() }).catch(
-      () => {
-        /* Offline: Session-Metadaten sind unkritisch; Bewertungen laufen lokal. */
-      },
-    );
+    void dispatchOp({
+      key: `sessionCreate:${sessionId}`,
+      kind: 'sessionCreate',
+      input: buildSessionCreateInput({ sessionId, type, chapterId: config.chapterId, startedAt: Date.now() }),
+    }).catch(() => {
+      /* Offline: liegt in der Outbox; Bewertungen laufen lokal weiter. */
+    });
     router.push(type === 'lernen' ? '/session/learn' : '/session/test');
   };
 

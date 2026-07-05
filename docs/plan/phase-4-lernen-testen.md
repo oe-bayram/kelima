@@ -82,7 +82,7 @@ Mutation nach dem **Optimistic-Muster von `useToggleFavorite`** (`src/hooks/user
   3. Optimistic Update der ProgressMap im Query-Cache (`applyRating`).
 - [ ] Session-Lifecycle (Teil des Stores oder eigener Hook): `LearningSession` bei Start create, bei Ende update (`endedAt`, `totalCount`, `correctCount`).
 - [ ] Zähler-Semantik: `seenCount++` (learn) bzw. `testCount++` (test); `correctCount++` (kann_ich|sicher), `wrongCount++` (nicht_gewusst), `hardCount++` (schwer); `lastSeenAt`/`lastTestedAt`/`lastRatingAt`, `lastRating`, `status`, `dueAt`, `intervalDays`.
-- [ ] Optional (Could-have): `sicher` erst nach 2 konsekutiven korrekten Bewertungen (über `intervalDays`/Streak in `applyRating`).
+- [x] Optional (Could-have): `sicher` erst nach 2 konsekutiven korrekten Bewertungen — umgesetzt in `ratingToStatus(rating, prev)` via `prev.lastRating` als Streak-Proxy (kein zusätzliches Schema-Feld); `dueAt`/`intervalDays` folgen dem resultierenden Status.
 
 ## 4. Offline-Outbox (`src/features/session/outbox.ts` + netinfo-Bridge)
 

@@ -21,7 +21,10 @@
     "language": "Dil",
     "languageGerman": "Deutsch",
     "languageTurkish": "Türkçe",
-    "account": "Hesap"
+    "account": "Hesap",
+    "sync": "Eşitleme",
+    "pendingSync": "{{count}} değerlendirme bekliyor",
+    "syncNow": "Şimdi eşitle"
   },
   "home": {
     "welcome": "Hoş geldin",

@@ -21,7 +21,10 @@
     "language": "Sprache",
     "languageGerman": "Deutsch",
     "languageTurkish": "Türkçe",
-    "account": "Konto"
+    "account": "Konto",
+    "sync": "Synchronisation",
+    "pendingSync": "{{count}} Bewertungen ausstehend",
+    "syncNow": "Jetzt synchronisieren"
   },
   "home": {
     "welcome": "Willkommen",
