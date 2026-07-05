@@ -4,9 +4,10 @@ React-Native-App (Expo SDK 57) zum Lernen der Deutsch-B1-Vokabeln für türkisch
 Lernende. Oberfläche umschaltbar **Deutsch/Türkisch**. Backend: AWS Amplify Gen 2
 (Cognito, AppSync, DynamoDB). Siehe [docs/plan](docs/plan) für Masterplan und Phasenpläne.
 
-> **Status:** Phase 1 (Fundament) umgesetzt — lauffähiges Gerüst mit NativeWind-Styling,
-> expo-router-Navigation, Cognito-Login (Authenticator) und i18n. Datenimport und Lern-/
-> Testflow folgen in den Phasen 2–5.
+> **Status:** Phasen 1–5 umgesetzt — Datenimport, Content-UI (Kapitel/Karten), eigener
+> E-Mail/Passwort-Login, Lern-/Testsessions mit 4-stufiger Bewertung + Offline-Outbox,
+> Statistik und Einstellungen. Verbleibend: manuelle QA + Android-Release (siehe unten). iOS
+> vorerst zurückgestellt.
 
 ---
 
@@ -112,3 +113,51 @@ Diese Schritte brauchen AWS-Zugang bzw. ein Gerät und sind daher manuell durchz
 2. `pnpm android` → App startet als Dev-Build auf einem Android-Gerät.
 3. Smoke-Test **auf dem Gerät**: Registrieren → Bestätigungscode → Login → App → Abmelden →
    erneut Login. Nach App-Neustart bleibt die Session bestehen (verifiziert Amplify ↔ New Arch).
+
+---
+
+## Release (Android)
+
+### Umgebungen
+
+- **Sandbox** (Entwicklung): `npx ampx sandbox` → eigenes, kurzlebiges Backend, erzeugt lokales
+  `amplify_outputs.json` (gitignored).
+- **Produktion**: eigener, dauerhafter Stack via Amplify-Pipeline (Branch `main`, backend-only),
+  z. B. `npx ampx pipeline-deploy --branch main --app-id <APP_ID>`. Das erzeugte
+  `amplify_outputs.json` je Umgebung getrennt halten (nicht committen).
+- Datenimport `pnpm import:data` **einmal gegen Prod** laufen lassen (idempotent, deterministische
+  IDs → gefahrlos wiederholbar); Import-Report prüfen.
+
+### App-Identität (vor dem ersten Release anpassen)
+
+- `app.json`: `android.package` von `com.anonymous.kelima` auf eine echte Domain umstellen
+  (z. B. `com.deinname.kelima`). **Danach** `appId` in `.maestro/*.yaml` anpassen.
+- `version` (SemVer) pflegen; `versionCode` beim Store-Upload monoton erhöhen.
+- App-Icon/Splash/Name in `app.json` (`assets/images/*`) final prüfen.
+
+### Signiertes Release-APK (lokal, kostenlos)
+
+```bash
+# Keystore EINMALIG erzeugen (sicher + außerhalb des Repos ablegen!):
+keytool -genkeypair -v -keystore kelima-release.keystore \
+  -alias kelima -keyalg RSA -keysize 2048 -validity 10000
+
+# Signiertes Release bauen und installieren:
+npx expo run:android --variant release
+```
+
+- Keystore + Passwörter **niemals** committen und sicher sichern (Verlust = keine Updates mehr).
+- Optionale Gegenprobe im EAS-Free-Kontingent: `eas build -p android --profile preview`.
+- Auf ≥ 2 Zielgeräten installieren und die QA-Checkliste (`docs/plan/phase-5-statistik-release.md`
+  §4) durchgehen (u. a. TTS auf 2 Geräten, Nutzerisolierung, Zwei-Geräte-Sync).
+
+### QA / E2E
+
+- Unit-Tests: `pnpm test:ci` (dueAt/Status-Mapping/Problemwörter, Statistik, Outbox, Merkmal-Parser).
+- E2E: Maestro-Flows unter [`.maestro/`](.maestro/README.md) (login, Kapitel/Card, Lern-/Testsession,
+  Offline-Sync).
+
+### Play-Store
+
+Veröffentlichung erst nach Klärung der Wortlisten-Rechte (Goethe/DTZ). Bis dahin APK-Direkt­verteilung
+an Zielgeräte.

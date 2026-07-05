@@ -1,0 +1,19 @@
+appId: com.anonymous.kelima
+env:
+  EMAIL: test@example.com
+  PASSWORD: Passwort123!
+---
+# Login-Flow. Als Baustein via `runFlow: login.yaml` in anderen Flows nutzbar.
+# Ausführen: maestro test .maestro/login.yaml -e EMAIL=… -e PASSWORD=…
+- launchApp:
+    clearState: true
+- assertVisible: 'Anmelden'
+- tapOn: 'E-Mail eingeben'
+- inputText: ${EMAIL}
+- tapOn: 'Passwort eingeben'
+- inputText: ${PASSWORD}
+- hideKeyboard
+- tapOn:
+    id: 'auth-submit'
+# Nach erfolgreichem Login erscheint die Tab-Leiste.
+- assertVisible: 'Kapitel'

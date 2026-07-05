@@ -149,6 +149,7 @@ export default function SignInScreen() {
             ) : null}
 
             <Button
+              testID="auth-submit"
               label={t(ACTION_KEY[mode])}
               loading={loading}
               disabled={!isAmplifyConfigured}

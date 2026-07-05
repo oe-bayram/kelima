@@ -1,0 +1,18 @@
+appId: com.anonymous.kelima
+---
+# Kapitel öffnen → erste Vokabel → Formen-Tab.
+# Voraussetzung: Testkonto mit mindestens einem Kapitel, das Wörter enthält.
+- runFlow: login.yaml
+- tapOn: 'Kapitel'
+- assertVisible:
+    id: 'chapter-row'
+- tapOn:
+    id: 'chapter-row'
+    index: 0
+- assertVisible:
+    id: 'entry-row'
+- tapOn:
+    id: 'entry-row'
+    index: 0
+- tapOn: 'Formen'
+- assertVisible: 'Übersicht'

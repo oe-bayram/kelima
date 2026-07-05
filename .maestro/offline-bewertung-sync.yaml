@@ -1,0 +1,28 @@
+appId: com.anonymous.kelima
+---
+# Offline bewerten → Outbox-Badge → online → synchronisieren.
+# Maestro hat keinen zuverlässigen Flugmodus-Schalter; die Netz-Umschaltung
+# erfolgt per adb (Kommentare) oder manuell am Gerät.
+- runFlow: login.yaml
+
+# --- Netz AUS ---
+#   adb shell cmd connectivity airplane-mode enable
+- tapOn: 'Kapitel'
+- tapOn:
+    id: 'chapter-row'
+    index: 0
+- tapOn: 'Session starten'
+- tapOn: 'Lernen'
+- tapOn: 'Alles anzeigen'
+- tapOn: 'Kann ich'
+# ggf. weitere Karten bewerten, bis die Zusammenfassung erscheint …
+
+# Outbox-Badge in den Einstellungen prüfen
+- tapOn: 'Fertig'
+- tapOn: 'Einstellungen'
+- assertVisible: 'ausstehend' # „n Bewertungen ausstehend"
+
+# --- Netz AN ---
+#   adb shell cmd connectivity airplane-mode disable
+- tapOn: 'Jetzt synchronisieren'
+# Nach dem Sync verschwindet das Badge (bei stabiler Verbindung).

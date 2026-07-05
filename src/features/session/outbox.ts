@@ -2,12 +2,9 @@ import { onlineManager } from '@tanstack/react-query';
 import { create } from 'zustand';
 import { createJSONStorage, persist, type StateStorage } from 'zustand/middleware';
 
+import { type OutboxOp, removeOp, upsertOp } from '@/features/session/outboxLogic';
 import {
   isNetworkError,
-  type ItemInput,
-  type ProgressInput,
-  type SessionCreateInput,
-  type SessionFinalizeInput,
   writeItemInput,
   writeProgressInput,
   writeSessionCreateInput,
@@ -21,14 +18,10 @@ import { storage } from '@/lib/storage';
  * Offline-Outbox für Bewertungs-/Session-Writes. Fehlgeschlagene Writes (offline
  * oder Netzfehler) landen als serialisierbare Ops in einer MMKV-Queue und werden
  * bei Reconnect idempotent nachgespielt (deterministische IDs verhindern
- * Duplikate). `key` ist der Dedup-Schlüssel: gleiche Progress-/Finalize-Ops
- * kollabieren zum jeweils neuesten Stand, Items sind (dank answeredAt) eindeutig.
+ * Duplikate). Queue-Logik + Typen: `outboxLogic.ts` (rein/testbar).
  */
-export type OutboxOp =
-  | { key: string; kind: 'item'; input: ItemInput }
-  | { key: string; kind: 'progress'; input: ProgressInput }
-  | { key: string; kind: 'sessionCreate'; input: SessionCreateInput }
-  | { key: string; kind: 'sessionFinalize'; input: SessionFinalizeInput };
+export type { OutboxOp } from '@/features/session/outboxLogic';
+export { pendingRatingCount } from '@/features/session/outboxLogic';
 
 const mmkvStorage: StateStorage = {
   getItem: (name) => storage.getString(name) ?? null,
@@ -51,9 +44,8 @@ export const useOutboxStore = create<OutboxState>()(
   persist(
     (set) => ({
       ops: [],
-      enqueue: (op) =>
-        set((s) => ({ ops: [...s.ops.filter((o) => o.key !== op.key), op] })),
-      remove: (key) => set((s) => ({ ops: s.ops.filter((o) => o.key !== key) })),
+      enqueue: (op) => set((s) => ({ ops: upsertOp(s.ops, op) })),
+      remove: (key) => set((s) => ({ ops: removeOp(s.ops, key) })),
       clear: () => set({ ops: [] }),
     }),
     {
@@ -63,11 +55,6 @@ export const useOutboxStore = create<OutboxState>()(
     },
   ),
 );
-
-/** Anzahl ausstehender Bewertungen (= Item-Ops) – für das Settings-Badge. */
-export function pendingRatingCount(ops: OutboxOp[]): number {
-  return ops.filter((o) => o.kind === 'item').length;
-}
 
 async function writeOp(op: OutboxOp): Promise<void> {
   switch (op.kind) {

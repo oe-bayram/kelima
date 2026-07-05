@@ -4,6 +4,14 @@ Ziel: Statistik-Screens, vollständige DE/TR-Lokalisierung, Offline-Feinschliff,
 
 Referenz: [Masterplan](00-masterplan.md) §8, §9; Alt-Plan v1 §6.14, §7.8, §15 Schritt 9, §16.
 
+> **Umsetzungsstand (Code — tsc/eslint/Unit-Tests grün):**
+> - ✅ §1 Statistik (Screen + Vokabelstatistik auf der Card; `statsLogic` + Tests)
+> - ✅ §2 Einstellungen (Sprache, Sprechtempo, Konto inkl. Passwort ändern, App-Info, Outbox-Status)
+> - ✅ §3 Leerzustände (Dashboard/Kapitel/Favoriten) + Haptik (`expo-haptics`); Dark-Mode-/Kontrast-Review bleibt visuell
+> - ✅ §4 Unit-Tests (dueAt/Status/Problemwörter, Statistik, Outbox); Maestro-Flows unter `.maestro/` (Ausführung auf Gerät manuell)
+> - ✅ §5 Release-Runbook im README; APK-Build/Prod-Deploy/Geräte-QA sind manuell
+> - ⏸️ §6 iOS: vorerst zurückgestellt
+
 ---
 
 ## 1. Statistik (`stats/index.tsx`, `src/features/stats/`)

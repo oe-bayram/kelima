@@ -42,6 +42,7 @@ function EntryRowItem({
   const genus = genusOf(entry);
   return (
     <Pressable
+      testID="entry-row"
       onPress={() => router.push({ pathname: '/vocab/[id]', params: { id: entry.id } })}
       className="mx-4 my-1 flex-row items-center gap-3 rounded-xl border border-neutral-200 p-3 dark:border-neutral-800"
     >

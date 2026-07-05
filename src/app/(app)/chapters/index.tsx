@@ -29,6 +29,7 @@ function ChapterRowItem({
 }) {
   return (
     <Pressable
+      testID="chapter-row"
       onPress={() => router.push({ pathname: '/chapters/[id]', params: { id: chapter.id } })}
       className="mx-4 my-1 gap-2 rounded-xl border border-neutral-200 p-3 dark:border-neutral-800"
     >

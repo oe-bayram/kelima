@@ -1,0 +1,15 @@
+appId: com.anonymous.kelima
+---
+# Testsession: Frageansicht → Antwort anzeigen → Prüferbewertung.
+# Voraussetzung: Kapitel mit Wörtern.
+- runFlow: login.yaml
+- tapOn: 'Kapitel'
+- tapOn:
+    id: 'chapter-row'
+    index: 0
+- tapOn: 'Session starten'
+- tapOn: 'Testen'
+# Antwort ist zunächst verborgen
+- assertVisible: 'Antwort anzeigen'
+- tapOn: 'Antwort anzeigen'
+- tapOn: 'Kann ich'
