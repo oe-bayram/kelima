@@ -8,6 +8,7 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 import { StartSheet, type StartSheetHandle } from '@/components/session/StartSheet';
 import { Button } from '@/components/ui/button';
+import { EmptyState } from '@/components/ui/empty-state';
 import { QueryBoundary } from '@/components/ui/query-boundary';
 import { Text } from '@/components/ui/text';
 import { useChapterEntries } from '@/hooks/content';
@@ -109,6 +110,23 @@ export default function ChapterDetailScreen() {
     return true;
   });
 
+  const emptyState =
+    filter === 'favoriten' ? (
+      <EmptyState
+        icon="star-outline"
+        title={t('empty.favoritesTitle')}
+        subtitle={t('empty.favoritesSubtitle')}
+      />
+    ) : filter === 'faellig' ? (
+      <EmptyState
+        icon="checkmark-done-outline"
+        title={t('empty.dueTitle')}
+        subtitle={t('empty.dueSubtitle')}
+      />
+    ) : (
+      <EmptyState icon="search-outline" title={t('chapters.empty')} />
+    );
+
   return (
     <View className="flex-1 bg-white dark:bg-neutral-950" style={{ paddingTop: insets.top }}>
       <View className="gap-2 px-4 pb-2 pt-2">
@@ -151,11 +169,7 @@ export default function ChapterDetailScreen() {
             data={filtered}
             keyExtractor={(e) => e.id}
             contentContainerStyle={{ paddingBottom: insets.bottom + 96 }}
-            ListEmptyComponent={
-              <Text variant="caption" className="p-6 text-center">
-                {t('chapters.empty')}
-              </Text>
-            }
+            ListEmptyComponent={emptyState}
             renderItem={({ item }) => {
               const isFav = !!favQ.data?.ids.has(item.id);
               return (

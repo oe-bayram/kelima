@@ -19,6 +19,7 @@ export type ProgressRow = Schema['UserVocabularyProgress']['type'];
 export type FavoriteRow = Schema['UserFavoriteVocabulary']['type'];
 export type SessionRow = Schema['LearningSession']['type'];
 export type SessionItemRow = Schema['LearningSessionItem']['type'];
+export type ContentVersionRow = Schema['ContentVersion']['type'];
 
 export interface ListResult<T> {
   data: T[];

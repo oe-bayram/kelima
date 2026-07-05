@@ -22,6 +22,22 @@
     "languageGerman": "Deutsch",
     "languageTurkish": "Türkçe",
     "account": "Hesap",
+    "email": "E-posta",
+    "changePassword": "Şifre değiştir",
+    "currentPassword": "Mevcut şifre",
+    "newPassword": "Yeni şifre",
+    "passwordChanged": "Şifre değiştirildi.",
+    "save": "Kaydet",
+    "cancel": "İptal",
+    "speech": "Telaffuz hızı",
+    "speechSlow": "Yavaş",
+    "speechNormal": "Normal",
+    "speechFast": "Hızlı",
+    "speechPreview": "Önizlemeyi oynat",
+    "appInfo": "Uygulama bilgisi",
+    "version": "Sürüm",
+    "contentVersion": "İçerik sürümü",
+    "license": "Kelime listeleri Goethe-Zertifikat B1 / DTZ temel alınmıştır.",
     "sync": "Eşitleme",
     "pendingSync": "{{count}} değerlendirme bekliyor",
     "syncNow": "Şimdi eşitle"
@@ -143,6 +159,16 @@
       "nextDue": "Sonraki zaman",
       "never": "—"
     }
+  },
+  "empty": {
+    "dashboardTitle": "Henüz kelime yok",
+    "dashboardSubtitle": "Bir bölüm aç ve öğrenmeye başla.",
+    "chaptersTitle": "Bölüm yok",
+    "chaptersSubtitle": "İçerik içe aktarıldığında burada görünür.",
+    "favoritesTitle": "Henüz favori yok",
+    "favoritesSubtitle": "Bir kelimedeki yıldıza dokunarak kaydet.",
+    "dueTitle": "Zamanı gelen yok",
+    "dueSubtitle": "Harika – şu an tekrar gereken yok."
   },
   "auth": {
     "signInTitle": "Giriş yap",

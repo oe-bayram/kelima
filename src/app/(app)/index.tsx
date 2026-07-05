@@ -7,6 +7,7 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { StartSheet, type StartSheetHandle } from '@/components/session/StartSheet';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
+import { EmptyState } from '@/components/ui/empty-state';
 import { Text } from '@/components/ui/text';
 import { selectCandidates } from '@/features/session/sessionLogic';
 import { useChapterMemberships } from '@/hooks/content';
@@ -42,6 +43,7 @@ export default function HomeScreen() {
   const neu = Math.max(0, total - (progress?.size ?? 0));
   const faellig = progress ? [...progress.values()].filter((p) => isDue(p)).length : 0;
   const favoriten = favQ.data?.ids.size ?? 0;
+  const noData = membershipsQ.isSuccess && total === 0;
 
   const openSheet = (kind: DashboardSource) => {
     const now = Date.now();
@@ -70,34 +72,46 @@ export default function HomeScreen() {
           <Text variant="caption">{t('dashboard.greeting')}</Text>
         </View>
 
-        <View className="flex-row gap-2">
-          <Stat label={t('dashboard.total')} value={total} />
-          <Stat label={t('dashboard.neu')} value={neu} />
-        </View>
-        <View className="flex-row gap-2">
-          <Stat label={t('dashboard.faellig')} value={faellig} />
-          <Stat label={t('dashboard.favoriten')} value={favoriten} />
-        </View>
+        {noData ? (
+          <EmptyState
+            icon="book-outline"
+            title={t('empty.dashboardTitle')}
+            subtitle={t('empty.dashboardSubtitle')}
+            actionLabel={t('dashboard.openChapters')}
+            onAction={() => router.push('/chapters')}
+          />
+        ) : (
+          <>
+            <View className="flex-row gap-2">
+              <Stat label={t('dashboard.total')} value={total} />
+              <Stat label={t('dashboard.neu')} value={neu} />
+            </View>
+            <View className="flex-row gap-2">
+              <Stat label={t('dashboard.faellig')} value={faellig} />
+              <Stat label={t('dashboard.favoriten')} value={favoriten} />
+            </View>
 
-        <Button label={t('dashboard.openChapters')} onPress={() => router.push('/chapters')} />
+            <Button label={t('dashboard.openChapters')} onPress={() => router.push('/chapters')} />
 
-        <View className="gap-3">
-          <Button label={t('dashboard.continueLearn')} onPress={() => openSheet('due')} />
-          <View className="flex-row gap-2">
-            <Button
-              className="flex-1"
-              variant="secondary"
-              label={t('session.problemWords')}
-              onPress={() => openSheet('problem')}
-            />
-            <Button
-              className="flex-1"
-              variant="secondary"
-              label={t('dashboard.favoriten')}
-              onPress={() => openSheet('favorites')}
-            />
-          </View>
-        </View>
+            <View className="gap-3">
+              <Button label={t('dashboard.continueLearn')} onPress={() => openSheet('due')} />
+              <View className="flex-row gap-2">
+                <Button
+                  className="flex-1"
+                  variant="secondary"
+                  label={t('session.problemWords')}
+                  onPress={() => openSheet('problem')}
+                />
+                <Button
+                  className="flex-1"
+                  variant="secondary"
+                  label={t('dashboard.favoriten')}
+                  onPress={() => openSheet('favorites')}
+                />
+              </View>
+            </View>
+          </>
+        )}
       </View>
 
       <StartSheet ref={sheetRef} />

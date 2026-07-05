@@ -1,4 +1,5 @@
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
+import { fetchUserAttributes } from 'aws-amplify/auth';
 
 import { isAmplifyConfigured } from '@/lib/amplify';
 import {
@@ -8,6 +9,7 @@ import {
   type ProgressRow,
   type SessionRow,
 } from '@/lib/dataClient';
+import { hapticLight } from '@/lib/haptics';
 import { queryKeys } from '@/lib/queryKeys';
 
 export function useProgressMap() {
@@ -40,6 +42,19 @@ export function useFavorites() {
         ids: new Set(rows.map((r) => r.entryId)),
         recordByEntry: new Map(rows.map((r) => [r.entryId, r.id])),
       };
+    },
+  });
+}
+
+/** E-Mail des angemeldeten Nutzers (aus den Cognito-Attributen). */
+export function useUserEmail() {
+  return useQuery({
+    enabled: isAmplifyConfigured,
+    queryKey: queryKeys.userAttributes,
+    staleTime: Infinity,
+    queryFn: async (): Promise<string | null> => {
+      const attrs = await fetchUserAttributes();
+      return attrs.email ?? null;
     },
   });
 }
@@ -82,6 +97,7 @@ export function useToggleFavorite() {
       });
     },
     onMutate: async ({ entryId, isFav }) => {
+      hapticLight();
       await qc.cancelQueries({ queryKey: queryKeys.favorites });
       const prev = qc.getQueryData<FavoritesData>(queryKeys.favorites);
       const ids = new Set(prev?.ids ?? []);

@@ -9,4 +9,6 @@ export const queryKeys = {
   progress: ['progress'] as const,
   favorites: ['favorites'] as const,
   sessions: ['sessions'] as const,
+  contentVersion: ['contentVersion'] as const,
+  userAttributes: ['userAttributes'] as const,
 };

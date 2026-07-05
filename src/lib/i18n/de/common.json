@@ -22,6 +22,22 @@
     "languageGerman": "Deutsch",
     "languageTurkish": "Türkçe",
     "account": "Konto",
+    "email": "E-Mail",
+    "changePassword": "Passwort ändern",
+    "currentPassword": "Aktuelles Passwort",
+    "newPassword": "Neues Passwort",
+    "passwordChanged": "Passwort geändert.",
+    "save": "Speichern",
+    "cancel": "Abbrechen",
+    "speech": "Aussprache-Tempo",
+    "speechSlow": "Langsam",
+    "speechNormal": "Normal",
+    "speechFast": "Schnell",
+    "speechPreview": "Vorschau abspielen",
+    "appInfo": "App-Info",
+    "version": "Version",
+    "contentVersion": "Inhalts-Version",
+    "license": "Wortlisten angelehnt an Goethe-Zertifikat B1 / DTZ.",
     "sync": "Synchronisation",
     "pendingSync": "{{count}} Bewertungen ausstehend",
     "syncNow": "Jetzt synchronisieren"
@@ -143,6 +159,16 @@
       "nextDue": "Nächste Fälligkeit",
       "never": "—"
     }
+  },
+  "empty": {
+    "dashboardTitle": "Noch keine Vokabeln",
+    "dashboardSubtitle": "Öffne ein Kapitel und leg mit dem Lernen los.",
+    "chaptersTitle": "Keine Kapitel",
+    "chaptersSubtitle": "Sobald Inhalte importiert sind, erscheinen sie hier.",
+    "favoritesTitle": "Noch keine Favoriten",
+    "favoritesSubtitle": "Tippe den Stern auf einer Vokabel, um sie zu merken.",
+    "dueTitle": "Nichts fällig",
+    "dueSubtitle": "Super – aktuell ist keine Wiederholung fällig."
   },
   "auth": {
     "signInTitle": "Anmelden",

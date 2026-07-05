@@ -7,6 +7,7 @@ import { useRateVocab } from '@/features/session/useRateVocab';
 import { useSessionStore } from '@/features/session/useSessionStore';
 import { useProgressMap } from '@/hooks/userData';
 import type { Rating } from '@/lib/enums';
+import { hapticLight, hapticSuccess } from '@/lib/haptics';
 import { queryClient } from '@/lib/queryClient';
 import { queryKeys } from '@/lib/queryKeys';
 
@@ -53,6 +54,7 @@ export function useSessionRunner() {
     });
     // „Letzte Sessions" in der Statistik frisch halten.
     void queryClient.invalidateQueries({ queryKey: queryKeys.sessions });
+    hapticSuccess();
     finish(new Date(endedAt).toISOString());
     router.replace('/session/summary');
   }, [active, sessionId, index, queue.length, ratings, finish]);
@@ -60,6 +62,7 @@ export function useSessionRunner() {
   const submit = useCallback(
     (rating: Rating) => {
       if (!currentId || !sessionId || !type) return;
+      hapticLight();
       const answeredAt = Date.now();
       rateVocab.mutate({
         entryId: currentId,

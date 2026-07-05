@@ -5,6 +5,7 @@ import { Pressable, View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 import { Badge } from '@/components/ui/badge';
+import { EmptyState } from '@/components/ui/empty-state';
 import { Progress } from '@/components/ui/progress';
 import { QueryBoundary } from '@/components/ui/query-boundary';
 import { Text } from '@/components/ui/text';
@@ -84,6 +85,13 @@ export default function ChaptersScreen() {
               getItemType={(r) => r.type}
               stickyHeaderIndices={stickyHeaderIndices}
               contentContainerStyle={{ paddingBottom: insets.bottom + 24 }}
+              ListEmptyComponent={
+                <EmptyState
+                  icon="library-outline"
+                  title={t('empty.chaptersTitle')}
+                  subtitle={t('empty.chaptersSubtitle')}
+                />
+              }
               renderItem={({ item }) =>
                 item.type === 'header' ? (
                   <Text

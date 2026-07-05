@@ -5,6 +5,7 @@ import { mapWithConcurrency } from '@/lib/async';
 import {
   type ChapterLinkRow,
   type ChapterRow,
+  type ContentVersionRow,
   dataClient,
   type EntryRow,
   type ExampleRow,
@@ -114,5 +115,19 @@ export function useExamples(entryId: string) {
       listAll<ExampleRow>((args) =>
         dataClient.models.VocabularyExample.listExamplesByEntry({ entryId }, args),
       ),
+  });
+}
+
+/** Neueste importierte Inhalts-Version (für die App-Info in den Einstellungen). */
+export function useContentVersion() {
+  return useQuery({
+    ...contentOptions,
+    queryKey: queryKeys.contentVersion,
+    queryFn: async (): Promise<ContentVersionRow | null> => {
+      const rows = await listAll<ContentVersionRow>((args) =>
+        dataClient.models.ContentVersion.list(args),
+      );
+      return rows.sort((a, b) => b.version - a.version)[0] ?? null;
+    },
   });
 }
