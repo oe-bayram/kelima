@@ -8,4 +8,5 @@ export const queryKeys = {
   examples: (entryId: string) => ['examples', entryId] as const,
   progress: ['progress'] as const,
   favorites: ['favorites'] as const,
+  sessions: ['sessions'] as const,
 };

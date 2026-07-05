@@ -117,6 +117,33 @@
       "done": "Bitti"
     }
   },
+  "stats": {
+    "title": "İstatistik",
+    "overview": "Genel bakış",
+    "progress": "Toplam ilerleme",
+    "due": "Zamanı gelen",
+    "favorites": "Favoriler",
+    "learned": "Öğrenildi",
+    "chapters": "Bölümler",
+    "problemWords": "Zor kelimeler",
+    "words": "{{count}} kelime",
+    "recentSessions": "Son oturumlar",
+    "noSessions": "Henüz oturum yok.",
+    "empty": "Henüz ilerleme yok – bir öğrenme oturumu başlat!",
+    "sessionResult": "{{correct}}/{{total}} doğru",
+    "vocab": {
+      "title": "İstatistiğin",
+      "seen": "Görülen",
+      "tested": "Test edilen",
+      "correct": "Doğru",
+      "wrong": "Yanlış",
+      "hard": "Zor",
+      "wrongRate": "Hata oranı",
+      "lastTested": "Son test",
+      "nextDue": "Sonraki zaman",
+      "never": "—"
+    }
+  },
   "auth": {
     "signInTitle": "Giriş yap",
     "signUpTitle": "Hesap oluştur",

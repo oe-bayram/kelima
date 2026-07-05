@@ -1,7 +1,13 @@
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 
 import { isAmplifyConfigured } from '@/lib/amplify';
-import { dataClient, type FavoriteRow, listAll, type ProgressRow } from '@/lib/dataClient';
+import {
+  dataClient,
+  type FavoriteRow,
+  listAll,
+  type ProgressRow,
+  type SessionRow,
+} from '@/lib/dataClient';
 import { queryKeys } from '@/lib/queryKeys';
 
 export function useProgressMap() {
@@ -34,6 +40,21 @@ export function useFavorites() {
         ids: new Set(rows.map((r) => r.entryId)),
         recordByEntry: new Map(rows.map((r) => [r.entryId, r.id])),
       };
+    },
+  });
+}
+
+/** Letzte abgeschlossene/gestartete Sessions, absteigend nach Startzeit. */
+export function useRecentSessions(limit = 10) {
+  return useQuery({
+    enabled: isAmplifyConfigured,
+    queryKey: queryKeys.sessions,
+    queryFn: async (): Promise<SessionRow[]> => {
+      const rows = await listAll<SessionRow>((args) => dataClient.models.LearningSession.list(args));
+      return rows
+        .filter((r) => r.startedAt)
+        .sort((a, b) => (b.startedAt ?? '').localeCompare(a.startedAt ?? ''))
+        .slice(0, limit);
     },
   });
 }

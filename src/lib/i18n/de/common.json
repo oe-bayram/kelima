@@ -117,6 +117,33 @@
       "done": "Fertig"
     }
   },
+  "stats": {
+    "title": "Statistik",
+    "overview": "Übersicht",
+    "progress": "Gesamtfortschritt",
+    "due": "Fällig",
+    "favorites": "Favoriten",
+    "learned": "Gelernt",
+    "chapters": "Kapitel",
+    "problemWords": "Problemwörter",
+    "words": "{{count}} Wörter",
+    "recentSessions": "Letzte Sessions",
+    "noSessions": "Noch keine Sessions.",
+    "empty": "Noch kein Fortschritt – starte eine Lernsession!",
+    "sessionResult": "{{correct}}/{{total}} richtig",
+    "vocab": {
+      "title": "Deine Statistik",
+      "seen": "Gesehen",
+      "tested": "Getestet",
+      "correct": "Richtig",
+      "wrong": "Falsch",
+      "hard": "Schwer",
+      "wrongRate": "Fehlerquote",
+      "lastTested": "Zuletzt getestet",
+      "nextDue": "Nächste Fälligkeit",
+      "never": "—"
+    }
+  },
   "auth": {
     "signInTitle": "Anmelden",
     "signUpTitle": "Konto erstellen",

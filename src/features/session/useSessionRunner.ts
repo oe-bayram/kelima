@@ -7,6 +7,8 @@ import { useRateVocab } from '@/features/session/useRateVocab';
 import { useSessionStore } from '@/features/session/useSessionStore';
 import { useProgressMap } from '@/hooks/userData';
 import type { Rating } from '@/lib/enums';
+import { queryClient } from '@/lib/queryClient';
+import { queryKeys } from '@/lib/queryKeys';
 
 /**
  * Gemeinsame Ablauf-Steuerung für Lern- und Testsession: aktuelle Karte,
@@ -49,6 +51,8 @@ export function useSessionRunner() {
     }).catch(() => {
       /* Offline: liegt in der Outbox und wird bei Reconnect nachgespielt. */
     });
+    // „Letzte Sessions" in der Statistik frisch halten.
+    void queryClient.invalidateQueries({ queryKey: queryKeys.sessions });
     finish(new Date(endedAt).toISOString());
     router.replace('/session/summary');
   }, [active, sessionId, index, queue.length, ratings, finish]);

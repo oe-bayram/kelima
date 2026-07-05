@@ -139,6 +139,7 @@ function CardBody({
           <OverviewSection
             entry={entry}
             status={status}
+            progress={progressQ.data?.get(entry.id)}
             chapterTitles={(membershipsQ.data?.byEntry.get(entry.id) ?? [])
               .map((cid) => chaptersQ.data?.find((c) => c.id === cid)?.title)
               .filter((x): x is string => !!x)}
