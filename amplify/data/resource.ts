@@ -170,12 +170,18 @@ const schema = a.schema({
       entryId: a.id().required(),
       status: a.ref('VocabularyStatus'),
       dueAt: a.datetime(),
-      lastReviewedAt: a.datetime(),
-      lastRating: a.ref('Rating'),
-      reviewCount: a.integer(),
-      correctCount: a.integer(),
-      lapseCount: a.integer(),
       intervalDays: a.integer(),
+      // Zähler
+      seenCount: a.integer(), // in Lernsessions gezeigt/bewertet
+      testCount: a.integer(), // in Testsessions beantwortet
+      correctCount: a.integer(), // kann_ich | sicher
+      wrongCount: a.integer(), // nicht_gewusst
+      hardCount: a.integer(), // schwer
+      // Zeitstempel
+      lastSeenAt: a.datetime(), // letzte Lernsession
+      lastTestedAt: a.datetime(), // letzte Testsession
+      lastRatingAt: a.datetime(), // letzte Bewertung (beliebig)
+      lastRating: a.ref('Rating'),
     })
     .secondaryIndexes((index) => [index('entryId').queryField('listProgressByEntry')])
     .authorization((allow) => [allow.owner()]),

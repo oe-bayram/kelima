@@ -17,6 +17,8 @@ export type ChapterRow = Schema['Chapter']['type'];
 export type ChapterLinkRow = Schema['VocabularyChapter']['type'];
 export type ProgressRow = Schema['UserVocabularyProgress']['type'];
 export type FavoriteRow = Schema['UserFavoriteVocabulary']['type'];
+export type SessionRow = Schema['LearningSession']['type'];
+export type SessionItemRow = Schema['LearningSessionItem']['type'];
 
 export interface ListResult<T> {
   data: T[];

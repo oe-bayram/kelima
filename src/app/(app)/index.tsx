@@ -1,14 +1,19 @@
 import { router } from 'expo-router';
+import { useRef } from 'react';
 import { useTranslation } from 'react-i18next';
 import { View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
+import { StartSheet, type StartSheetHandle } from '@/components/session/StartSheet';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import { Text } from '@/components/ui/text';
+import { selectCandidates } from '@/features/session/sessionLogic';
 import { useChapterMemberships } from '@/hooks/content';
 import { useFavorites, useProgressMap } from '@/hooks/userData';
 import { isDue } from '@/lib/vocab';
+
+type DashboardSource = 'due' | 'problem' | 'favorites';
 
 function Stat({ label, value }: { label: string; value: number }) {
   return (
@@ -30,11 +35,32 @@ export default function HomeScreen() {
   const progressQ = useProgressMap();
   const favQ = useFavorites();
 
+  const sheetRef = useRef<StartSheetHandle>(null);
+
   const total = membershipsQ.data?.byEntry.size ?? 0;
   const progress = progressQ.data;
   const neu = Math.max(0, total - (progress?.size ?? 0));
   const faellig = progress ? [...progress.values()].filter((p) => isDue(p)).length : 0;
   const favoriten = favQ.data?.ids.size ?? 0;
+
+  const openSheet = (kind: DashboardSource) => {
+    const now = Date.now();
+    const allEntryIds = [...(membershipsQ.data?.byEntry.keys() ?? [])];
+    const candidateIds = selectCandidates({
+      kind,
+      allEntryIds,
+      favoriteIds: favQ.data?.ids,
+      progress: progressQ.data,
+      now,
+    });
+    const label =
+      kind === 'due'
+        ? t('session.source.due')
+        : kind === 'problem'
+          ? t('session.source.problem')
+          : t('session.source.favorites');
+    sheetRef.current?.present({ candidateIds, label });
+  };
 
   return (
     <View className="flex-1 bg-white dark:bg-neutral-950" style={{ paddingTop: insets.top }}>
@@ -55,26 +81,26 @@ export default function HomeScreen() {
 
         <Button label={t('dashboard.openChapters')} onPress={() => router.push('/chapters')} />
 
-        <View className="gap-2">
-          <Text variant="caption">{t('dashboard.phase4Hint')}</Text>
+        <View className="gap-3">
+          <Button label={t('dashboard.continueLearn')} onPress={() => openSheet('due')} />
           <View className="flex-row gap-2">
             <Button
               className="flex-1"
               variant="secondary"
-              label={t('dashboard.continueLearn')}
-              disabled
-              onPress={() => {}}
+              label={t('session.problemWords')}
+              onPress={() => openSheet('problem')}
             />
             <Button
               className="flex-1"
               variant="secondary"
-              label={t('dashboard.testSession')}
-              disabled
-              onPress={() => {}}
+              label={t('dashboard.favoriten')}
+              onPress={() => openSheet('favorites')}
             />
           </View>
         </View>
       </View>
+
+      <StartSheet ref={sheetRef} />
     </View>
   );
 }

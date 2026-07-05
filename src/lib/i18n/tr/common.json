@@ -84,7 +84,35 @@
   "session": {
     "learn": "Öğren",
     "test": "Test",
-    "problemWords": "Zor kelimeler"
+    "problemWords": "Zor kelimeler",
+    "start": "Oturum başlat",
+    "count": "Adet",
+    "countAll": "Tümü",
+    "wordsAvailable": "{{count}} kelime mevcut",
+    "empty": "Bu seçim için kelime yok.",
+    "progress": "{{total}} karttan {{current}}.",
+    "reveal": "Göster",
+    "revealAll": "Tümünü göster",
+    "showAnswer": "Cevabı göster",
+    "sectionTranslation": "Çeviri",
+    "sectionForms": "Biçimler",
+    "sectionExamples": "Örnekler",
+    "sectionGrammar": "Dilbilgisi",
+    "source": {
+      "due": "Zamanı gelen kelimeler",
+      "problem": "Zor kelimeler",
+      "favorites": "Favoriler",
+      "chapter": "Bölüm",
+      "all": "Tüm kelimeler"
+    },
+    "summary": {
+      "title": "Özet",
+      "duration": "Süre",
+      "weakWords": "Zor kelimeler",
+      "noWeak": "Zor kelime yok – harika!",
+      "again": "Zor kelimeleri tekrarla",
+      "done": "Bitti"
+    }
   },
   "auth": {
     "signInTitle": "Giriş yap",

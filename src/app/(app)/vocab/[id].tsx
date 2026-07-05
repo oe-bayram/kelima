@@ -6,11 +6,13 @@ import { Pressable, ScrollView, View } from 'react-native';
 import { useSafeAreaInsets, type EdgeInsets } from 'react-native-safe-area-context';
 
 import { Badge } from '@/components/ui/badge';
-import { Card, CardContent } from '@/components/ui/card';
 import { QueryBoundary } from '@/components/ui/query-boundary';
 import { Segmented } from '@/components/ui/segmented';
 import { CardSkeleton } from '@/components/ui/skeleton';
 import { Text } from '@/components/ui/text';
+import { ExamplesSection } from '@/components/vocab/ExamplesSection';
+import { GrammarSection } from '@/components/vocab/GrammarSection';
+import { OverviewSection } from '@/components/vocab/OverviewSection';
 import { FormsTab } from '@/components/vocab/paradigm/FormsTab';
 import {
   useChapterMemberships,
@@ -21,7 +23,7 @@ import {
 } from '@/hooks/content';
 import { useTts } from '@/hooks/useTts';
 import { useFavorites, useProgressMap, useToggleFavorite } from '@/hooks/userData';
-import type { EntryRow, ExampleRow } from '@/lib/dataClient';
+import type { EntryRow } from '@/lib/dataClient';
 import { cn } from '@/lib/utils';
 import { genusOf, GENUS_TEXT_CLASS, STATUS_BG_CLASS, statusOf } from '@/lib/vocab';
 
@@ -134,7 +136,7 @@ function CardBody({
         contentContainerStyle={{ paddingBottom: insets.bottom + 24 }}
       >
         {tab === 'overview' ? (
-          <OverviewTab
+          <OverviewSection
             entry={entry}
             status={status}
             chapterTitles={(membershipsQ.data?.byEntry.get(entry.id) ?? [])
@@ -150,7 +152,7 @@ function CardBody({
         {tab === 'examples' ? (
           <QueryBoundary query={examplesQ}>
             {(examples) => (
-              <ExamplesTab
+              <ExamplesSection
                 examples={examples}
                 onSpeak={(s) => void speak(s)}
                 noneLabel={t('card.noExamples')}
@@ -158,119 +160,9 @@ function CardBody({
             )}
           </QueryBoundary>
         ) : null}
-        {tab === 'grammar' ? <GrammarTab entry={entry} /> : null}
+        {tab === 'grammar' ? <GrammarSection entry={entry} /> : null}
       </ScrollView>
     </View>
   );
 }
 
-function OverviewTab({
-  entry,
-  status,
-  chapterTitles,
-}: {
-  entry: EntryRow;
-  status: ReturnType<typeof statusOf>;
-  chapterTitles: string[];
-}) {
-  const { t } = useTranslation();
-  return (
-    <View className="gap-4">
-      {entry.hinweis ? (
-        <Card>
-          <CardContent>
-            <Text>{entry.hinweis}</Text>
-          </CardContent>
-        </Card>
-      ) : null}
-      <View className="gap-1">
-        <Text variant="caption">{t('card.status')}</Text>
-        <Badge
-          className={STATUS_BG_CLASS[status]}
-          textClassName="text-white"
-          label={t(`status.${status}`)}
-        />
-      </View>
-      {chapterTitles.length ? (
-        <View className="gap-1">
-          <Text variant="caption">{t('card.chapters')}</Text>
-          {chapterTitles.map((title, i) => (
-            <Text key={`${title}-${i}`}>{title}</Text>
-          ))}
-        </View>
-      ) : null}
-    </View>
-  );
-}
-
-function ExamplesTab({
-  examples,
-  onSpeak,
-  noneLabel,
-}: {
-  examples: ExampleRow[];
-  onSpeak: (text: string) => void;
-  noneLabel: string;
-}) {
-  if (!examples.length) return <Text variant="caption">{noneLabel}</Text>;
-  return (
-    <View className="gap-3">
-      {examples.map((ex) => (
-        <View key={ex.id} className="flex-row items-start gap-2">
-          <View className="flex-1">
-            <Text className="font-semibold">{ex.textDe}</Text>
-            {ex.textTr ? <Text variant="caption">{ex.textTr}</Text> : null}
-          </View>
-          <Pressable hitSlop={8} onPress={() => onSpeak(ex.textDe)}>
-            <Ionicons name="volume-medium-outline" size={18} color="#9ca3af" />
-          </Pressable>
-        </View>
-      ))}
-    </View>
-  );
-}
-
-function GrammarField({ label, value }: { label: string; value?: string | null }) {
-  if (!value) return null;
-  return (
-    <View className="flex-row justify-between gap-4 py-1">
-      <Text variant="caption">{label}</Text>
-      <Text className="flex-1 text-right">{value}</Text>
-    </View>
-  );
-}
-
-function GrammarTab({ entry }: { entry: EntryRow }) {
-  const { t } = useTranslation('grammar');
-  const badges: string[] = [];
-  if (entry.trennbar) badges.push(t('badge.trennbar'));
-  if (entry.reflexiv) badges.push(t('badge.reflexiv'));
-  if (entry.nurPlural) badges.push(t('badge.nurPlural'));
-  if (entry.unzaehlbar) badges.push(t('badge.unzaehlbar'));
-  if (entry.steigerbar === false) badges.push(t('badge.nichtSteigerbar'));
-
-  return (
-    <Card>
-      <CardContent className="gap-1">
-        <GrammarField label={t('field.wortart')} value={t(`wortart.${entry.wortart}`)} />
-        <GrammarField label={t('field.artikel')} value={entry.artikel} />
-        <GrammarField label={t('field.plural')} value={entry.plural} />
-        <GrammarField label={t('field.pluralOriginal')} value={entry.pluralOriginal} />
-        <GrammarField label={t('field.hilfsverb')} value={entry.hilfsverb} />
-        <GrammarField
-          label={t('field.rektion')}
-          value={entry.praepositionRektion || entry.verbRektion}
-        />
-        <GrammarField label={t('field.hauptwort')} value={entry.hauptwort} />
-        <GrammarField label={t('section.weiblicheForm')} value={entry.femininForm} />
-        {badges.length ? (
-          <View className="mt-2 flex-row flex-wrap gap-2">
-            {badges.map((b, i) => (
-              <Badge key={`${b}-${i}`} variant="outline" label={b} />
-            ))}
-          </View>
-        ) : null}
-      </CardContent>
-    </Card>
-  );
-}

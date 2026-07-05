@@ -84,7 +84,35 @@
   "session": {
     "learn": "Lernen",
     "test": "Testen",
-    "problemWords": "Problemwörter"
+    "problemWords": "Problemwörter",
+    "start": "Session starten",
+    "count": "Anzahl",
+    "countAll": "Alle",
+    "wordsAvailable": "{{count}} Wörter verfügbar",
+    "empty": "Keine Wörter für diese Auswahl.",
+    "progress": "Karte {{current}} von {{total}}",
+    "reveal": "Anzeigen",
+    "revealAll": "Alles anzeigen",
+    "showAnswer": "Antwort anzeigen",
+    "sectionTranslation": "Übersetzung",
+    "sectionForms": "Formen",
+    "sectionExamples": "Beispiele",
+    "sectionGrammar": "Grammatik",
+    "source": {
+      "due": "Fällige Wörter",
+      "problem": "Problemwörter",
+      "favorites": "Favoriten",
+      "chapter": "Kapitel",
+      "all": "Alle Vokabeln"
+    },
+    "summary": {
+      "title": "Zusammenfassung",
+      "duration": "Dauer",
+      "weakWords": "Schwierige Wörter",
+      "noWeak": "Keine schwierigen Wörter – stark!",
+      "again": "Problemwörter wiederholen",
+      "done": "Fertig"
+    }
   },
   "auth": {
     "signInTitle": "Anmelden",

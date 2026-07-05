@@ -1,6 +1,7 @@
 import '@/lib/amplify'; // MUSS zuerst laufen: Polyfills + Amplify.configure()
 import '@/global.css';
 
+import { BottomSheetModalProvider } from '@gorhom/bottom-sheet';
 import { PersistQueryClientProvider } from '@tanstack/react-query-persist-client';
 import { DarkTheme, DefaultTheme, Stack, ThemeProvider } from 'expo-router';
 import * as SplashScreen from 'expo-splash-screen';
@@ -25,7 +26,9 @@ export default function RootLayout() {
         <PersistQueryClientProvider client={queryClient} persistOptions={persistOptions}>
           <I18nextProvider i18n={i18n}>
             <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
-              <RootNavigator />
+              <BottomSheetModalProvider>
+                <RootNavigator />
+              </BottomSheetModalProvider>
             </ThemeProvider>
           </I18nextProvider>
         </PersistQueryClientProvider>
@@ -56,6 +59,9 @@ function RootNavigator() {
     <Stack screenOptions={{ headerShown: false }}>
       <Stack.Protected guard={isAuthenticated}>
         <Stack.Screen name="(app)" />
+        <Stack.Screen name="session/learn" options={{ presentation: 'fullScreenModal' }} />
+        <Stack.Screen name="session/test" options={{ presentation: 'fullScreenModal' }} />
+        <Stack.Screen name="session/summary" options={{ presentation: 'fullScreenModal' }} />
       </Stack.Protected>
       <Stack.Protected guard={!isAuthenticated}>
         <Stack.Screen name="(auth)" />

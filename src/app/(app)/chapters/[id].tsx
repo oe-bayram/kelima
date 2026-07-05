@@ -1,11 +1,12 @@
 import { Ionicons } from '@expo/vector-icons';
 import { FlashList } from '@shopify/flash-list';
 import { router, useLocalSearchParams } from 'expo-router';
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Pressable, ScrollView, TextInput, View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
+import { StartSheet, type StartSheetHandle } from '@/components/session/StartSheet';
 import { Button } from '@/components/ui/button';
 import { QueryBoundary } from '@/components/ui/query-boundary';
 import { Text } from '@/components/ui/text';
@@ -73,6 +74,7 @@ export default function ChapterDetailScreen() {
   const insets = useSafeAreaInsets();
   const [filter, setFilter] = useState<FilterKey>('all');
   const [search, setSearch] = useState('');
+  const sheetRef = useRef<StartSheetHandle>(null);
 
   const filters: { key: FilterKey; label: string }[] = [
     { key: 'all', label: t('filter.all') },
@@ -84,6 +86,28 @@ export default function ChapterDetailScreen() {
     { key: 'faellig', label: t('filter.faellig') },
     { key: 'favoriten', label: t('filter.favoriten') },
   ];
+
+  const entries = entriesQ.data ?? [];
+  const q = normalizeSearch(search.trim());
+  const filtered = entries.filter((e) => {
+    const prog = progressQ.data?.get(e.id);
+    const st = statusOf(prog);
+    if (filter === 'faellig') {
+      if (!isDue(prog)) return false;
+    } else if (filter === 'favoriten') {
+      if (!favQ.data?.ids.has(e.id)) return false;
+    } else if (filter !== 'all' && st !== filter) {
+      return false;
+    }
+    if (
+      q &&
+      !normalizeSearch(e.lemma).includes(q) &&
+      !normalizeSearch(e.translationTr ?? '').includes(q)
+    ) {
+      return false;
+    }
+    return true;
+  });
 
   return (
     <View className="flex-1 bg-white dark:bg-neutral-950" style={{ paddingTop: insets.top }}>
@@ -122,73 +146,55 @@ export default function ChapterDetailScreen() {
       </View>
 
       <QueryBoundary query={entriesQ}>
-        {(entries) => {
-          const q = normalizeSearch(search.trim());
-          const filtered = entries.filter((e) => {
-            const prog = progressQ.data?.get(e.id);
-            const st = statusOf(prog);
-            if (filter === 'faellig') {
-              if (!isDue(prog)) return false;
-            } else if (filter === 'favoriten') {
-              if (!favQ.data?.ids.has(e.id)) return false;
-            } else if (filter !== 'all' && st !== filter) {
-              return false;
+        {() => (
+          <FlashList
+            data={filtered}
+            keyExtractor={(e) => e.id}
+            contentContainerStyle={{ paddingBottom: insets.bottom + 96 }}
+            ListEmptyComponent={
+              <Text variant="caption" className="p-6 text-center">
+                {t('chapters.empty')}
+              </Text>
             }
-            if (
-              q &&
-              !normalizeSearch(e.lemma).includes(q) &&
-              !normalizeSearch(e.translationTr ?? '').includes(q)
-            ) {
-              return false;
-            }
-            return true;
-          });
-          return (
-            <FlashList
-              data={filtered}
-              keyExtractor={(e) => e.id}
-              contentContainerStyle={{ paddingBottom: insets.bottom + 96 }}
-              ListEmptyComponent={
-                <Text variant="caption" className="p-6 text-center">
-                  {t('chapters.empty')}
-                </Text>
-              }
-              renderItem={({ item }) => {
-                const isFav = !!favQ.data?.ids.has(item.id);
-                return (
-                  <EntryRowItem
-                    entry={item}
-                    status={statusOf(progressQ.data?.get(item.id))}
-                    isFav={isFav}
-                    onToggleFav={() =>
-                      toggleFav.mutate({
-                        entryId: item.id,
-                        isFav,
-                        favId: favQ.data?.recordByEntry.get(item.id),
-                      })
-                    }
-                  />
-                );
-              }}
-            />
-          );
-        }}
+            renderItem={({ item }) => {
+              const isFav = !!favQ.data?.ids.has(item.id);
+              return (
+                <EntryRowItem
+                  entry={item}
+                  status={statusOf(progressQ.data?.get(item.id))}
+                  isFav={isFav}
+                  onToggleFav={() =>
+                    toggleFav.mutate({
+                      entryId: item.id,
+                      isFav,
+                      favId: favQ.data?.recordByEntry.get(item.id),
+                    })
+                  }
+                />
+              );
+            }}
+          />
+        )}
       </QueryBoundary>
 
-      {/* Sessions kommen in Phase 4 → vorbereitet, aber deaktiviert. */}
       <View
-        className="absolute inset-x-0 bottom-0 flex-row gap-2 border-t border-neutral-200 bg-white p-3 dark:border-neutral-800 dark:bg-neutral-950"
+        className="absolute inset-x-0 bottom-0 border-t border-neutral-200 bg-white p-3 dark:border-neutral-800 dark:bg-neutral-950"
         style={{ paddingBottom: insets.bottom + 8 }}
       >
-        <Button className="flex-1" label={t('session.learn')} disabled onPress={() => {}} />
         <Button
-          className="flex-1"
-          variant="secondary"
-          label={t('session.test')}
-          disabled
-          onPress={() => {}}
+          label={t('session.start')}
+          disabled={!filtered.length}
+          onPress={() =>
+            sheetRef.current?.present({
+              candidateIds: filtered.map((e) => e.id),
+              label: t('session.source.chapter'),
+              chapterId: id,
+            })
+          }
         />
       </View>
+
+      <StartSheet ref={sheetRef} />
     </View>
   );
 }
