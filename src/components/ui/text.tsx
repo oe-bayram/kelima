@@ -4,7 +4,7 @@ import { Text as RNText, type TextProps } from 'react-native';
 import { cn } from '@/lib/utils';
 
 /**
- * Typografie-Skala nach dem Lernwort-Design-System (design-system/TOKENS.md).
+ * Typografie-Skala nach dem Kelima-Design-System (design-system/TOKENS.md).
  * `lemma` ist das Vokabel-Wort (Held), `title`/`heading` Überschriften,
  * `label`/`caption` Meta-Text. Schrift-Gewicht kommt über gewichts-explizite
  * Font-Familien (RN wählt Gewichte nicht selbst) — display = Schibsted Grotesk,

@@ -2,10 +2,10 @@ import { Ionicons } from '@expo/vector-icons';
 import { useTranslation } from 'react-i18next';
 import { KeyboardAvoidingView, Platform, Pressable, ScrollView, View } from 'react-native';
 
-import { BrandMark } from '@/components/ui/brand-mark';
 import { Button } from '@/components/ui/button';
 import { CodeInput } from '@/components/ui/code-input';
 import { Input } from '@/components/ui/input';
+import { Logo } from '@/components/ui/logo';
 import { Screen } from '@/components/ui/screen';
 import { Segmented } from '@/components/ui/segmented';
 import { Text } from '@/components/ui/text';
@@ -39,7 +39,7 @@ function AuthLink({ label, onPress }: { label: string; onPress: () => void }) {
 }
 
 /**
- * Eigener E-Mail/Passwort-Auth-Screen im Lernwort-Design (Marke, Segmented-
+ * Eigener E-Mail/Passwort-Auth-Screen im Kelima-Design (Logo, Segmented-
  * Umschalter Anmelden/Registrieren, Code-Boxen, Passwort-Anzeigen-Toggle).
  * Ersetzt den Amplify-`<Authenticator>`. Logik in `useAuthFlow`; nach
  * erfolgreicher Anmeldung wechselt das Gate im Root-Layout in die (app)-Gruppe.
@@ -82,8 +82,10 @@ export default function SignInScreen() {
             ) : null}
 
             {/* Kopfbereich */}
-            <View className="gap-4">
-              <BrandMark size={52} />
+            <View className="gap-8">
+              <View className="items-center">
+                <Logo height={200} />
+              </View>
               <View className="gap-1">
                 <Text variant="title">{t(TITLE_KEY[mode])}</Text>
                 {showHint ? (

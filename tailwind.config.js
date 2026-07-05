@@ -1,6 +1,6 @@
 /** @type {import('tailwindcss').Config} */
 
-// Design tokens gespiegelt aus design-system/ (Lernwort DS).
+// Design tokens gespiegelt aus design-system/ (Kelima DS).
 // Werte-Referenz: design-system/TOKENS.md + design-system/tokens/colors.css.
 // Theming folgt der App-Konvention: EINE Palette + `dark:`-Varianten
 // (darkMode: 'media'); die warmen Neutrals & das Pinien-Grün ersetzen die
