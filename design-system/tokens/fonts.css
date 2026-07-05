@@ -1,0 +1,5 @@
+/* Lernwort — Webfonts
+   Fonts are loaded from Google Fonts (no licensed binaries were provided).
+   See DESIGN.md → "Font substitution" if you have brand font files to swap in.
+   In the React-Native app these are loaded via expo-font / @expo-google-fonts. */
+@import url('https://fonts.googleapis.com/css2?family=Schibsted+Grotesk:wght@400;500;600;700;800&family=Hanken+Grotesk:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=JetBrains+Mono:wght@400;500&display=swap');

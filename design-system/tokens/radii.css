@@ -1,0 +1,10 @@
+/* Lernwort — Corner radii. Soft, modern, not bubbly. */
+:root {
+  --r-xs: 6px;
+  --r-sm: 10px;    /* chips, small controls */
+  --r-md: 12px;    /* buttons, inputs */
+  --r-lg: 16px;    /* cards */
+  --r-xl: 20px;    /* hero / focused vocab card */
+  --r-2xl: 26px;   /* sheets, large surfaces */
+  --r-full: 999px; /* pills, avatars, status dots */
+}

@@ -13,6 +13,7 @@ module.exports = defineConfig([
       'amplify/**',
       'scripts/**',
       '.agents/*',
+      'design-system/**', // gespiegeltes Design-System (Web-Referenz, kein App-Code)
     ],
   },
 ]);

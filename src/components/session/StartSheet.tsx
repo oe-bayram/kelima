@@ -100,8 +100,8 @@ export const StartSheet = forwardRef<StartSheetHandle>(function StartSheet(_prop
       ref={modalRef}
       enableDynamicSizing
       backdropComponent={renderBackdrop}
-      backgroundStyle={{ backgroundColor: scheme === 'dark' ? '#0a0a0a' : '#ffffff' }}
-      handleIndicatorStyle={{ backgroundColor: scheme === 'dark' ? '#525252' : '#d4d4d4' }}
+      backgroundStyle={{ backgroundColor: scheme === 'dark' ? '#1F211E' : '#ffffff' }}
+      handleIndicatorStyle={{ backgroundColor: scheme === 'dark' ? '#3D403A' : '#D2CFC2' }}
     >
       <BottomSheetView style={{ paddingHorizontal: 20, paddingTop: 4, paddingBottom: 32 }}>
         <View className="gap-5">

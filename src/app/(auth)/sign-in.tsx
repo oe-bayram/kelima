@@ -1,9 +1,13 @@
+import { Ionicons } from '@expo/vector-icons';
 import { useTranslation } from 'react-i18next';
 import { KeyboardAvoidingView, Platform, Pressable, ScrollView, View } from 'react-native';
 
+import { BrandMark } from '@/components/ui/brand-mark';
 import { Button } from '@/components/ui/button';
+import { CodeInput } from '@/components/ui/code-input';
 import { Input } from '@/components/ui/input';
 import { Screen } from '@/components/ui/screen';
+import { Segmented } from '@/components/ui/segmented';
 import { Text } from '@/components/ui/text';
 import { type AuthMode, useAuthFlow } from '@/features/auth/useAuthFlow';
 import { isAmplifyConfigured } from '@/lib/amplify';
@@ -25,7 +29,7 @@ const ACTION_KEY: Record<AuthMode, TranslationKey> = {
   reset: 'auth.resetAction',
 };
 
-/** Textlink für Modus-Wechsel (Registrieren, zurück zur Anmeldung, …). */
+/** Textlink für Modus-Wechsel (Passwort vergessen, zurück zur Anmeldung, …). */
 function AuthLink({ label, onPress }: { label: string; onPress: () => void }) {
   return (
     <Pressable onPress={onPress} accessibilityRole="link" hitSlop={8}>
@@ -35,20 +39,22 @@ function AuthLink({ label, onPress }: { label: string; onPress: () => void }) {
 }
 
 /**
- * Eigener E-Mail/Passwort-Auth-Screen (ersetzt den Amplify-`<Authenticator>`,
- * dessen eingebaute UI auf diesem Stack den Submit-Button unsichtbar rendert).
- * Logik in `useAuthFlow`; nach erfolgreicher Anmeldung wechselt das Gate im
- * Root-Layout automatisch in die (app)-Gruppe.
+ * Eigener E-Mail/Passwort-Auth-Screen im Lernwort-Design (Marke, Segmented-
+ * Umschalter Anmelden/Registrieren, Code-Boxen, Passwort-Anzeigen-Toggle).
+ * Ersetzt den Amplify-`<Authenticator>`. Logik in `useAuthFlow`; nach
+ * erfolgreicher Anmeldung wechselt das Gate im Root-Layout in die (app)-Gruppe.
  */
 export default function SignInScreen() {
   const { t } = useTranslation();
   const { mode, setMode, fields, setField, loading, error, info, submit, resend } = useAuthFlow();
 
+  const isPrimary = mode === 'signIn' || mode === 'signUp';
   const showEmail = mode !== 'reset';
   const showPassword = mode === 'signIn' || mode === 'signUp';
   const showCode = mode === 'confirm' || mode === 'reset';
   const showNewPassword = mode === 'reset';
   const showHint = mode === 'confirm' || mode === 'reset';
+  const codeError = error === 'auth.errors.CodeMismatchException' || error === 'auth.errors.ExpiredCodeException';
 
   return (
     <Screen>
@@ -61,21 +67,53 @@ export default function SignInScreen() {
           contentContainerStyle={{ flexGrow: 1 }}
           showsVerticalScrollIndicator={false}
         >
-          <View className="flex-1 justify-center gap-6 py-10">
-            <View className="gap-2">
-              <Text variant="title">{t(TITLE_KEY[mode])}</Text>
-              {showHint ? (
-                <Text variant="caption">{t('auth.confirmHint', { email: fields.email })}</Text>
-              ) : null}
+          <View className="flex-1 justify-center gap-7 py-8">
+            {/* Zurück (nur in den Unter-Flows) */}
+            {!isPrimary ? (
+              <Pressable
+                onPress={() => setMode('signIn')}
+                accessibilityRole="button"
+                accessibilityLabel={t('auth.toSignIn')}
+                hitSlop={8}
+                className="-ml-1 h-10 w-10 items-center justify-center self-start rounded-xl"
+              >
+                <Ionicons name="chevron-back" size={24} color="#6A6760" />
+              </Pressable>
+            ) : null}
+
+            {/* Kopfbereich */}
+            <View className="gap-4">
+              <BrandMark size={52} />
+              <View className="gap-1">
+                <Text variant="title">{t(TITLE_KEY[mode])}</Text>
+                {showHint ? (
+                  <Text className="text-base text-neutral-600 dark:text-neutral-400">
+                    {t('auth.confirmHint', { email: fields.email })}
+                  </Text>
+                ) : null}
+              </View>
             </View>
 
+            {/* Anmelden / Registrieren */}
+            {isPrimary ? (
+              <Segmented<'signIn' | 'signUp'>
+                options={[
+                  { value: 'signIn', label: t('auth.signInAction') },
+                  { value: 'signUp', label: t('auth.signUpAction') },
+                ]}
+                value={mode as 'signIn' | 'signUp'}
+                onChange={setMode}
+              />
+            ) : null}
+
             {!isAmplifyConfigured ? (
-              <Text className="text-sm text-status-schwer">{t('auth.errors.notConfigured')}</Text>
+              <Text className="text-sm text-status-nichtGewusst">{t('auth.errors.notConfigured')}</Text>
             ) : null}
 
             <View className="gap-4">
               {showEmail ? (
                 <Input
+                  iconLeft="mail-outline"
                   label={t('auth.email')}
                   value={fields.email}
                   onChangeText={(value) => setField('email', value)}
@@ -93,6 +131,7 @@ export default function SignInScreen() {
 
               {showPassword ? (
                 <Input
+                  iconLeft="lock-closed-outline"
                   label={t('auth.password')}
                   value={fields.password}
                   onChangeText={(value) => setField('password', value)}
@@ -107,22 +146,23 @@ export default function SignInScreen() {
               ) : null}
 
               {showCode ? (
-                <Input
-                  label={t('auth.code')}
-                  value={fields.code}
-                  onChangeText={(value) => setField('code', value)}
-                  placeholder={t('auth.codePlaceholder')}
-                  keyboardType="number-pad"
-                  autoComplete="one-time-code"
-                  textContentType="oneTimeCode"
-                  editable={!loading}
-                  returnKeyType={mode === 'confirm' ? 'go' : 'next'}
-                  onSubmitEditing={mode === 'confirm' ? submit : undefined}
-                />
+                <View className="gap-2">
+                  <Text className="text-sm font-medium text-neutral-600 dark:text-neutral-300">
+                    {t('auth.code')}
+                  </Text>
+                  <CodeInput
+                    value={fields.code}
+                    onChangeText={(value) => setField('code', value)}
+                    autoFocus={mode === 'confirm'}
+                    error={codeError}
+                    editable={!loading}
+                  />
+                </View>
               ) : null}
 
               {showNewPassword ? (
                 <Input
+                  iconLeft="lock-closed-outline"
                   label={t('auth.newPassword')}
                   value={fields.newPassword}
                   onChangeText={(value) => setField('newPassword', value)}
@@ -144,31 +184,23 @@ export default function SignInScreen() {
             </View>
 
             {error ? <Text className="text-sm text-status-nichtGewusst">{t(error)}</Text> : null}
-            {info && !error ? (
-              <Text className="text-sm text-status-sicher">{t(info)}</Text>
-            ) : null}
+            {info && !error ? <Text className="text-sm text-status-kannIch">{t(info)}</Text> : null}
 
             <Button
               testID="auth-submit"
               label={t(ACTION_KEY[mode])}
+              size="lg"
+              iconRight={showCode ? 'checkmark' : 'arrow-forward'}
               loading={loading}
               disabled={!isAmplifyConfigured}
               onPress={submit}
             />
 
-            <View className="items-center gap-3">
-              {mode === 'signIn' ? (
-                <AuthLink label={t('auth.toSignUp')} onPress={() => setMode('signUp')} />
-              ) : null}
-
-              {showCode ? (
+            {showCode ? (
+              <View className="items-center">
                 <AuthLink label={t('auth.resendCode')} onPress={resend} />
-              ) : null}
-
-              {mode !== 'signIn' ? (
-                <AuthLink label={t('auth.toSignIn')} onPress={() => setMode('signIn')} />
-              ) : null}
-            </View>
+              </View>
+            ) : null}
           </View>
         </ScrollView>
       </KeyboardAvoidingView>

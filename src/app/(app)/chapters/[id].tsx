@@ -59,7 +59,7 @@ function EntryRowItem({
         <Ionicons
           name={isFav ? 'star' : 'star-outline'}
           size={20}
-          color={isFav ? '#f59e0b' : '#9ca3af'}
+          color={isFav ? '#C8703D' : '#8A867A'}
         />
       </Pressable>
     </Pressable>

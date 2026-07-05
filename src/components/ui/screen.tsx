@@ -18,7 +18,7 @@ export function Screen({ children, className, padded = true }: ScreenProps) {
   const insets = useSafeAreaInsets();
   return (
     <View
-      className={cn('flex-1 bg-white dark:bg-neutral-950', padded && 'px-5', className)}
+      className={cn('flex-1 bg-neutral-50 dark:bg-neutral-950', padded && 'px-5', className)}
       style={{ paddingTop: insets.top, paddingBottom: insets.bottom }}
     >
       {children}

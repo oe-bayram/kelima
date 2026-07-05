@@ -1,0 +1,50 @@
+/* Lernwort — Typography tokens
+   Display  = Schibsted Grotesk  → headings, big numbers, the vocabulary Lemma (hero)
+   Text     = Hanken Grotesk     → all UI copy, body, labels, buttons
+   Mono     = JetBrains Mono     → grammar forms, phonetics, IDs, status codes
+*/
+:root {
+  /* Families */
+  --font-display: "Schibsted Grotesk", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-text: "Hanken Grotesk", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, "SF Mono", Menlo, monospace;
+
+  /* Weights */
+  --fw-regular: 400; /* @kind font */
+  --fw-medium: 500; /* @kind font */
+  --fw-semibold: 600; /* @kind font */
+  --fw-bold: 700; /* @kind font */
+  --fw-black: 800; /* @kind font */
+
+  /* Type scale (mobile-first, px). Display sizes are for the Lemma/headers. */
+  --fs-display-xl: 44px;  /* Lemma hero on a focused card */
+  --fs-display-lg: 34px;
+  --fs-display-md: 28px;
+  --fs-title: 22px;       /* screen titles */
+  --fs-heading: 19px;     /* section headings */
+  --fs-body-lg: 17px;
+  --fs-body: 15px;        /* default UI body */
+  --fs-label: 13px;       /* labels, captions */
+  --fs-micro: 11px;       /* eyebrow, meta, badges */
+
+  /* Line heights */
+  --lh-tight: 1.08; /* @kind font */
+  --lh-snug: 1.25; /* @kind font */
+  --lh-normal: 1.45; /* @kind font */
+  --lh-relaxed: 1.6; /* @kind font */
+
+  /* Letter spacing */
+  --ls-tight: -0.02em;
+  --ls-snug: -0.01em;
+  --ls-normal: 0; /* @kind font */
+  --ls-wide: 0.02em;
+  --ls-eyebrow: 0.08em;   /* uppercase eyebrows / meta labels */
+
+  /* Semantic text roles */
+  --text-lemma: var(--fw-bold) var(--fs-display-xl)/var(--lh-tight) var(--font-display);
+  --text-title: var(--fw-bold) var(--fs-title)/var(--lh-snug) var(--font-display);
+  --text-heading: var(--fw-semibold) var(--fs-heading)/var(--lh-snug) var(--font-display);
+  --text-body: var(--fw-regular) var(--fs-body)/var(--lh-normal) var(--font-text);
+  --text-body-strong: var(--fw-semibold) var(--fs-body)/var(--lh-normal) var(--font-text);
+  --text-label: var(--fw-medium) var(--fs-label)/var(--lh-snug) var(--font-text);
+}

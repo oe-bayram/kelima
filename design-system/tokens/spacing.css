@@ -1,0 +1,26 @@
+/* Lernwort — Spacing scale (4px base) */
+:root {
+  --space-0: 0;
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 20px;
+  --space-6: 24px;
+  --space-7: 32px;
+  --space-8: 40px;
+  --space-9: 48px;
+  --space-10: 64px;
+  --space-12: 80px;
+
+  /* Semantic spacing */
+  --gap-inline: var(--space-2);     /* between inline siblings (icon + label) */
+  --gap-stack: var(--space-3);      /* between stacked controls */
+  --gap-section: var(--space-6);    /* between content sections */
+  --pad-card: var(--space-5);       /* default card padding */
+  --pad-screen: var(--space-5);     /* screen horizontal gutter */
+
+  /* Layout */
+  --screen-max: 440px;              /* phone content max width on larger viewports */
+  --tap-min: 44px;                  /* minimum touch target */
+}

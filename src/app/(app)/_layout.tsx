@@ -6,7 +6,7 @@ export default function AppTabsLayout() {
   const { t } = useTranslation();
 
   return (
-    <Tabs screenOptions={{ headerShown: false, tabBarActiveTintColor: '#208AEF' }}>
+    <Tabs screenOptions={{ headerShown: false, tabBarActiveTintColor: '#1A6E51' }}>
       <Tabs.Screen
         name="index"
         options={{
