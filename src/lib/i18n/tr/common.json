@@ -13,6 +13,9 @@
     "start": "Hadi başla",
     "retry": "Tekrar dene"
   },
+  "errors": {
+    "loadFailed": "Yüklenemedi."
+  },
   "settings": {
     "title": "Ayarlar",
     "language": "Dil",
@@ -28,5 +31,59 @@
     "chapters": "Bölümler",
     "stats": "İstatistik",
     "comingSoon": "Yakında"
+  },
+  "chapters": {
+    "sectionWordgroups": "Kelime grupları",
+    "sectionLessons": "Öğrenme bölümleri",
+    "typeWortgruppe": "Kelime grubu",
+    "typeAuto": "Otomatik",
+    "words": "{{count}} kelime",
+    "empty": "Kayıt yok"
+  },
+  "card": {
+    "tabsOverview": "Genel",
+    "tabsForms": "Biçimler",
+    "tabsExamples": "Örnekler",
+    "tabsGrammar": "Dilbilgisi",
+    "examples": "Örnekler",
+    "noExamples": "Örnek yok.",
+    "chapters": "Bölümler",
+    "status": "Durum",
+    "kernformen": "Temel biçimler"
+  },
+  "filter": {
+    "all": "Tümü",
+    "neu": "Yeni",
+    "nichtGewusst": "Bilinmiyor",
+    "schwer": "Zor",
+    "kannIch": "Biliyorum",
+    "sicher": "Emin",
+    "faellig": "Zamanı geldi",
+    "favoriten": "Favoriler",
+    "search": "Ara…"
+  },
+  "status": {
+    "neu": "Yeni",
+    "nicht_gewusst": "Bilinmiyor",
+    "schwer": "Zor",
+    "kann_ich": "Biliyorum",
+    "sicher": "Emin"
+  },
+  "dashboard": {
+    "greeting": "Tekrar hoş geldin",
+    "total": "Toplam",
+    "neu": "Yeni",
+    "faellig": "Zamanı geldi",
+    "favoriten": "Favoriler",
+    "openChapters": "Bölümlere git",
+    "continueLearn": "Öğrenmeye devam",
+    "testSession": "Test oturumu",
+    "problemWords": "Zor kelimeler",
+    "phase4Hint": "Öğrenme ve test oturumları 4. aşamada gelecek."
+  },
+  "session": {
+    "learn": "Öğren",
+    "test": "Test",
+    "problemWords": "Zor kelimeler"
   }
 }

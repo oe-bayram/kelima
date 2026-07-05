@@ -10,7 +10,9 @@ import {
 } from '../authenticator-i18n';
 import { storage } from '../storage';
 import de from './de/common.json';
+import grammarDe from './de/grammar.json';
 import tr from './tr/common.json';
+import grammarTr from './tr/grammar.json';
 
 export const LANGUAGE_STORAGE_KEY = 'settings.language';
 export const SUPPORTED_LANGUAGES = ['de', 'tr'] as const;
@@ -55,11 +57,11 @@ void i18n
     // Kein `lng` setzen – der Detektor entscheidet.
     fallbackLng: FALLBACK_LNG,
     supportedLngs: [...SUPPORTED_LANGUAGES],
-    ns: ['common'],
+    ns: ['common', 'grammar'],
     defaultNS: 'common',
     resources: {
-      de: { common: de },
-      tr: { common: tr },
+      de: { common: de, grammar: grammarDe },
+      tr: { common: tr, grammar: grammarTr },
     },
     returnNull: false,
     interpolation: {

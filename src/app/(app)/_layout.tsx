@@ -47,6 +47,9 @@ export default function AppTabsLayout() {
           ),
         }}
       />
+      {/* Detail-Routen: keine eigene Tab-Schaltfläche. */}
+      <Tabs.Screen name="chapters/[id]" options={{ href: null }} />
+      <Tabs.Screen name="vocab/[id]" options={{ href: null }} />
     </Tabs>
   );
 }

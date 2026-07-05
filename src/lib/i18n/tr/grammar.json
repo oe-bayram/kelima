@@ -1,0 +1,84 @@
+{
+  "kasus": {
+    "nominativ": "Yalın hâl",
+    "genitiv": "-in hâli (Genitiv)",
+    "dativ": "-e hâli (Dativ)",
+    "akkusativ": "-i hâli (Akkusativ)"
+  },
+  "numerus": {
+    "singular": "Tekil",
+    "plural": "Çoğul"
+  },
+  "tempus": {
+    "praesens": "Präsens (Şimdiki/Geniş)",
+    "praeteritum": "Präteritum (Geçmiş)",
+    "perfekt": "Perfekt (Birleşik geçmiş)",
+    "plusquamperfekt": "Plusquamperfekt",
+    "futur1": "Futur I (Gelecek)",
+    "futur2": "Futur II"
+  },
+  "modus": {
+    "indikativ": "Bildirme kipi",
+    "konjunktiv1": "Konjunktiv I",
+    "konjunktiv2": "Konjunktiv II (dilek kipi)"
+  },
+  "genusVerbi": {
+    "aktiv": "Etken",
+    "passiv": "Edilgen"
+  },
+  "grad": {
+    "positiv": "Yalın derece",
+    "komparativ": "Üstünlük derecesi",
+    "superlativ": "En üstünlük derecesi"
+  },
+  "anrede": {
+    "du": "du",
+    "ihr": "ihr",
+    "sie_hoeflich": "Sie"
+  },
+  "section": {
+    "infinitiv": "Mastar (Infinitiv)",
+    "kernformen": "Temel biçimler",
+    "imperativ": "Emir kipi",
+    "partizip": "Sıfat-fiiller",
+    "partizip1": "Partizip I",
+    "partizip2": "Partizip II",
+    "weiblicheForm": "Dişil biçim",
+    "erweiterteFormen": "Gelişmiş biçimler",
+    "zuInfinitiv": "zu-Infinitiv",
+    "infinitivPerfekt": "Infinitiv Perfekt",
+    "keineFormen": "Başka biçim yok."
+  },
+  "badge": {
+    "nurPlural": "yalnızca çoğul",
+    "unzaehlbar": "çoğulu yok (sayılamaz)",
+    "nichtSteigerbar": "karşılaştırılamaz",
+    "trennbar": "ayrılabilir",
+    "reflexiv": "dönüşlü",
+    "hilfsverb": "Yardımcı fiil: {{value}}",
+    "rektion": "İstem: {{value}}"
+  },
+  "field": {
+    "wortart": "Sözcük türü",
+    "artikel": "Artikel (tanımlık)",
+    "genus": "Cinsiyet",
+    "plural": "Çoğul",
+    "pluralOriginal": "Çoğul eki",
+    "hilfsverb": "Yardımcı fiil",
+    "rektion": "İstem",
+    "hauptwort": "Kök sözcük"
+  },
+  "wortart": {
+    "nomen": "İsim",
+    "verb": "Fiil",
+    "adjektiv": "Sıfat",
+    "adverb": "Zarf",
+    "praeposition": "Edat",
+    "konjunktion": "Bağlaç",
+    "pronomen": "Zamir",
+    "wendung": "Kalıp",
+    "partikel": "Partikel",
+    "interjektion": "Ünlem",
+    "numerale": "Sayı"
+  }
+}

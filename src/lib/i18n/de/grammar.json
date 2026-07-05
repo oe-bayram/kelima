@@ -1,0 +1,84 @@
+{
+  "kasus": {
+    "nominativ": "Nominativ",
+    "genitiv": "Genitiv",
+    "dativ": "Dativ",
+    "akkusativ": "Akkusativ"
+  },
+  "numerus": {
+    "singular": "Singular",
+    "plural": "Plural"
+  },
+  "tempus": {
+    "praesens": "Präsens",
+    "praeteritum": "Präteritum",
+    "perfekt": "Perfekt",
+    "plusquamperfekt": "Plusquamperfekt",
+    "futur1": "Futur I",
+    "futur2": "Futur II"
+  },
+  "modus": {
+    "indikativ": "Indikativ",
+    "konjunktiv1": "Konjunktiv I",
+    "konjunktiv2": "Konjunktiv II"
+  },
+  "genusVerbi": {
+    "aktiv": "Aktiv",
+    "passiv": "Passiv"
+  },
+  "grad": {
+    "positiv": "Positiv",
+    "komparativ": "Komparativ",
+    "superlativ": "Superlativ"
+  },
+  "anrede": {
+    "du": "du",
+    "ihr": "ihr",
+    "sie_hoeflich": "Sie"
+  },
+  "section": {
+    "infinitiv": "Infinitiv",
+    "kernformen": "Kernformen",
+    "imperativ": "Imperativ",
+    "partizip": "Partizipien",
+    "partizip1": "Partizip I",
+    "partizip2": "Partizip II",
+    "weiblicheForm": "Weibliche Form",
+    "erweiterteFormen": "Erweiterte Formen",
+    "zuInfinitiv": "zu-Infinitiv",
+    "infinitivPerfekt": "Infinitiv Perfekt",
+    "keineFormen": "Keine weiteren Formen."
+  },
+  "badge": {
+    "nurPlural": "nur Plural",
+    "unzaehlbar": "kein Plural (unzählbar)",
+    "nichtSteigerbar": "nicht steigerbar",
+    "trennbar": "trennbar",
+    "reflexiv": "reflexiv",
+    "hilfsverb": "Hilfsverb: {{value}}",
+    "rektion": "Rektion: {{value}}"
+  },
+  "field": {
+    "wortart": "Wortart",
+    "artikel": "Artikel",
+    "genus": "Genus",
+    "plural": "Plural",
+    "pluralOriginal": "Pluralendung",
+    "hilfsverb": "Hilfsverb",
+    "rektion": "Rektion",
+    "hauptwort": "Grundwort"
+  },
+  "wortart": {
+    "nomen": "Nomen",
+    "verb": "Verb",
+    "adjektiv": "Adjektiv",
+    "adverb": "Adverb",
+    "praeposition": "Präposition",
+    "konjunktion": "Konjunktion",
+    "pronomen": "Pronomen",
+    "wendung": "Wendung",
+    "partikel": "Partikel",
+    "interjektion": "Interjektion",
+    "numerale": "Numerale"
+  }
+}

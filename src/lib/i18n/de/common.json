@@ -13,6 +13,9 @@
     "start": "Los geht's",
     "retry": "Erneut versuchen"
   },
+  "errors": {
+    "loadFailed": "Konnte nicht geladen werden."
+  },
   "settings": {
     "title": "Einstellungen",
     "language": "Sprache",
@@ -28,5 +31,59 @@
     "chapters": "Kapitel",
     "stats": "Statistik",
     "comingSoon": "Bald verfügbar"
+  },
+  "chapters": {
+    "sectionWordgroups": "Wortgruppen",
+    "sectionLessons": "Lernkapitel",
+    "typeWortgruppe": "Wortgruppe",
+    "typeAuto": "Auto",
+    "words": "{{count}} Wörter",
+    "empty": "Keine Einträge"
+  },
+  "card": {
+    "tabsOverview": "Übersicht",
+    "tabsForms": "Formen",
+    "tabsExamples": "Beispiele",
+    "tabsGrammar": "Grammatik",
+    "examples": "Beispiele",
+    "noExamples": "Keine Beispiele vorhanden.",
+    "chapters": "Kapitel",
+    "status": "Status",
+    "kernformen": "Kernformen"
+  },
+  "filter": {
+    "all": "Alle",
+    "neu": "Neu",
+    "nichtGewusst": "Nicht gewusst",
+    "schwer": "Schwer",
+    "kannIch": "Kann ich",
+    "sicher": "Sicher",
+    "faellig": "Fällig",
+    "favoriten": "Favoriten",
+    "search": "Suchen…"
+  },
+  "status": {
+    "neu": "Neu",
+    "nicht_gewusst": "Nicht gewusst",
+    "schwer": "Schwer",
+    "kann_ich": "Kann ich",
+    "sicher": "Sicher"
+  },
+  "dashboard": {
+    "greeting": "Willkommen zurück",
+    "total": "Gesamt",
+    "neu": "Neu",
+    "faellig": "Fällig",
+    "favoriten": "Favoriten",
+    "openChapters": "Zu den Kapiteln",
+    "continueLearn": "Weiterlernen",
+    "testSession": "Testsession",
+    "problemWords": "Problemwörter",
+    "phase4Hint": "Lern- und Testsessions kommen in Phase 4."
+  },
+  "session": {
+    "learn": "Lernen",
+    "test": "Testen",
+    "problemWords": "Problemwörter"
   }
 }
