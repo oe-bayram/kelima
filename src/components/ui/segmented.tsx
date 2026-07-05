@@ -39,7 +39,7 @@ export function Segmented<T extends string>({
               className={cn(
                 'text-center text-sm',
                 active
-                  ? 'font-semibold text-neutral-900 dark:text-white'
+                  ? 'font-sans-semibold text-neutral-900 dark:text-white'
                   : 'text-neutral-500 dark:text-neutral-400',
               )}
             >

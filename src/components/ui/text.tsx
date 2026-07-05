@@ -6,20 +6,22 @@ import { cn } from '@/lib/utils';
 /**
  * Typografie-Skala nach dem Lernwort-Design-System (design-system/TOKENS.md).
  * `lemma` ist das Vokabel-Wort (Held), `title`/`heading` Überschriften,
- * `label`/`caption` Meta-Text. Farbe folgt den warmen Neutrals + Dark-Variante.
+ * `label`/`caption` Meta-Text. Schrift-Gewicht kommt über gewichts-explizite
+ * Font-Familien (RN wählt Gewichte nicht selbst) — display = Schibsted Grotesk,
+ * Body/Label = Hanken Grotesk. Farbe folgt den warmen Neutrals + Dark-Variante.
  */
-const textVariants = cva('text-neutral-900 dark:text-neutral-100', {
+const textVariants = cva('font-sans text-neutral-900 dark:text-neutral-100', {
   variants: {
     variant: {
-      lemma: 'text-4xl font-extrabold tracking-tight',
-      display: 'text-3xl font-extrabold tracking-tight',
-      title: 'text-2xl font-bold tracking-tight',
-      subtitle: 'text-xl font-semibold',
-      heading: 'text-lg font-semibold',
-      body: 'text-base',
-      bodyStrong: 'text-base font-semibold',
-      label: 'text-sm font-medium text-neutral-600 dark:text-neutral-300',
-      caption: 'text-sm text-neutral-500 dark:text-neutral-400',
+      lemma: 'font-display-black text-4xl tracking-tight',
+      display: 'font-display-black text-3xl tracking-tight',
+      title: 'font-display text-2xl tracking-tight',
+      subtitle: 'font-sans-semibold text-xl',
+      heading: 'font-sans-semibold text-lg',
+      body: 'font-sans text-base',
+      bodyStrong: 'font-sans-semibold text-base',
+      label: 'font-sans-medium text-sm text-neutral-600 dark:text-neutral-300',
+      caption: 'font-sans text-sm text-neutral-500 dark:text-neutral-400',
     },
   },
   defaultVariants: {

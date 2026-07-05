@@ -20,7 +20,7 @@ function Stat({ label, value }: { label: string; value: number }) {
   return (
     <Card className="flex-1">
       <CardContent className="items-center gap-1 p-3">
-        <Text className="text-2xl font-bold">{value}</Text>
+        <Text className="text-2xl font-sans-bold">{value}</Text>
         <Text variant="caption" className="text-center">
           {label}
         </Text>

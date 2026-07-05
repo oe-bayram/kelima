@@ -78,15 +78,15 @@ export default function SummaryScreen() {
                 key={r}
                 className={cn('flex-row items-center gap-2 rounded-full px-3 py-1.5', STATUS_BG_CLASS[r])}
               >
-                <Text className="text-sm font-semibold text-white">{t(`status.${r}`)}</Text>
-                <Text className="text-sm font-bold text-white">{counts[r]}</Text>
+                <Text className="text-sm font-sans-semibold text-white">{t(`status.${r}`)}</Text>
+                <Text className="text-sm font-sans-bold text-white">{counts[r]}</Text>
               </View>
             ))}
           </View>
 
           <View className="flex-row justify-between">
             <Text variant="caption">{t('session.summary.duration')}</Text>
-            <Text className="font-semibold">{formatDuration(durationMs)}</Text>
+            <Text className="font-sans-semibold">{formatDuration(durationMs)}</Text>
           </View>
 
           <View className="gap-2">
@@ -121,7 +121,7 @@ function WeakWordRow({ entryId }: { entryId: string }) {
       onPress={() => router.push({ pathname: '/vocab/[id]', params: { id: entry.id } })}
       className="flex-row items-center justify-between gap-2 rounded-xl border border-neutral-200 p-3 dark:border-neutral-800"
     >
-      <Text className={cn('font-medium', genus ? GENUS_TEXT_CLASS[genus] : undefined)}>
+      <Text className={cn('font-sans-medium', genus ? GENUS_TEXT_CLASS[genus] : undefined)}>
         {displayLemma}
       </Text>
       {entry.translationTr ? <Text variant="caption">{entry.translationTr}</Text> : null}

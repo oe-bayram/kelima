@@ -35,7 +35,7 @@ export function FormRow({
         onPress={() => void speak(form)}
         className="p-1"
       >
-        <Ionicons name="volume-medium-outline" size={18} color="#9ca3af" />
+        <Ionicons name="volume-medium-outline" size={18} color="#8A867A" />
       </Pressable>
     </View>
   );

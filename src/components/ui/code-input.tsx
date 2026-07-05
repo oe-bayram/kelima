@@ -79,7 +79,7 @@ export function CodeInput({
           autoComplete={i === 0 ? 'sms-otp' : 'off'}
           accessibilityLabel={`Ziffer ${i + 1}`}
           className={cn(
-            'h-14 flex-1 rounded-xl border-[1.5px] bg-white text-center text-2xl font-bold text-neutral-900 dark:bg-neutral-900 dark:text-neutral-100',
+            'h-14 flex-1 rounded-xl border-[1.5px] bg-white text-center text-2xl font-mono-bold text-neutral-900 dark:bg-neutral-900 dark:text-neutral-100',
             error
               ? 'border-status-nichtGewusst'
               : focusIdx === i

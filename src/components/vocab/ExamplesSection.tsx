@@ -20,11 +20,11 @@ export function ExamplesSection({
       {examples.map((ex) => (
         <View key={ex.id} className="flex-row items-start gap-2">
           <View className="flex-1">
-            <Text className="font-semibold">{ex.textDe}</Text>
+            <Text className="font-sans-semibold">{ex.textDe}</Text>
             {ex.textTr ? <Text variant="caption">{ex.textTr}</Text> : null}
           </View>
           <Pressable hitSlop={8} onPress={() => onSpeak(ex.textDe)}>
-            <Ionicons name="volume-medium-outline" size={18} color="#9ca3af" />
+            <Ionicons name="volume-medium-outline" size={18} color="#8A867A" />
           </Pressable>
         </View>
       ))}

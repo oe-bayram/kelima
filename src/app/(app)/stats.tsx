@@ -61,7 +61,7 @@ export default function StatsScreen() {
               <CardContent className="gap-3">
                 <View className="flex-row items-end justify-between">
                   <Text variant="subtitle">{t('stats.progress')}</Text>
-                  <Text className="text-2xl font-bold text-brand">
+                  <Text className="text-2xl font-sans-bold text-brand">
                     {Math.round(overview.progressPct * 100)}%
                   </Text>
                 </View>
@@ -101,7 +101,7 @@ export default function StatsScreen() {
                     className="gap-2 rounded-xl border border-neutral-200 p-3 dark:border-neutral-800"
                   >
                     <View className="flex-row items-center justify-between gap-2">
-                      <Text className="flex-1 font-medium">{chapter.title}</Text>
+                      <Text className="flex-1 font-sans-medium">{chapter.title}</Text>
                       <Text variant="caption">
                         {cp.learned}/{cp.total}
                       </Text>
@@ -133,7 +133,7 @@ export default function StatsScreen() {
 function MiniStat({ label, value }: { label: string; value: number }) {
   return (
     <View className="flex-1 items-center gap-0.5 rounded-xl bg-neutral-100 py-2 dark:bg-neutral-800">
-      <Text className="text-lg font-bold">{value}</Text>
+      <Text className="text-lg font-sans-bold">{value}</Text>
       <Text variant="caption" className="text-center">
         {label}
       </Text>
@@ -174,7 +174,7 @@ function SessionRowItem({ session }: { session: SessionRow }) {
       )}
     >
       <View className="gap-0.5">
-        <Text className="font-medium">{typeLabel}</Text>
+        <Text className="font-sans-medium">{typeLabel}</Text>
         <Text variant="caption">
           {date}
           {duration ? ` · ${duration}` : ''}

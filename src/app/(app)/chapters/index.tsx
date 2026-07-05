@@ -34,7 +34,7 @@ function ChapterRowItem({
       className="mx-4 my-1 gap-2 rounded-xl border border-neutral-200 p-3 dark:border-neutral-800"
     >
       <View className="flex-row items-center justify-between gap-2">
-        <Text className="flex-1 font-semibold">{chapter.title}</Text>
+        <Text className="flex-1 font-sans-semibold">{chapter.title}</Text>
         <Badge variant="outline" label={typeLabel} />
       </View>
       {chapter.titleTr ? <Text variant="caption">{chapter.titleTr}</Text> : null}
@@ -97,7 +97,7 @@ export default function ChaptersScreen() {
                 item.type === 'header' ? (
                   <Text
                     variant="caption"
-                    className="bg-white px-4 py-2 font-semibold uppercase dark:bg-neutral-950"
+                    className="bg-white px-4 py-2 font-sans-semibold uppercase dark:bg-neutral-950"
                   >
                     {item.title}
                   </Text>

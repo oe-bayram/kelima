@@ -47,7 +47,7 @@ function EntryRowItem({
       className="mx-4 my-1 flex-row items-center gap-3 rounded-xl border border-neutral-200 p-3 dark:border-neutral-800"
     >
       <View className="flex-1">
-        <Text className={cn('text-base font-medium', genus ? GENUS_TEXT_CLASS[genus] : undefined)}>
+        <Text className={cn('text-base font-sans-medium', genus ? GENUS_TEXT_CLASS[genus] : undefined)}>
           {entry.artikel ? `${entry.artikel} ` : ''}
           {entry.lemma}
         </Text>
@@ -135,7 +135,7 @@ export default function ChapterDetailScreen() {
           value={search}
           onChangeText={setSearch}
           placeholder={t('filter.search')}
-          placeholderTextColor="#9ca3af"
+          placeholderTextColor="#8A867A"
           autoCapitalize="none"
           className="rounded-xl border border-neutral-300 px-3 py-2 text-base text-neutral-900 dark:border-neutral-700 dark:text-white"
         />
@@ -155,7 +155,7 @@ export default function ChapterDetailScreen() {
                   active ? 'border-brand bg-brand' : 'border-neutral-300 dark:border-neutral-700',
                 )}
               >
-                <Text className={cn('text-sm', active ? 'font-semibold text-white' : undefined)}>
+                <Text className={cn('text-sm', active ? 'font-sans-semibold text-white' : undefined)}>
                   {f.label}
                 </Text>
               </Pressable>

@@ -62,12 +62,12 @@ function CardInner({ entry }: { entry: EntryRow }) {
         <View className="gap-2">
           <View className="flex-row items-start gap-2">
             <Text
-              className={cn('flex-1 text-3xl font-bold', genus ? GENUS_TEXT_CLASS[genus] : undefined)}
+              className={cn('flex-1 text-3xl font-sans-bold', genus ? GENUS_TEXT_CLASS[genus] : undefined)}
             >
               {displayLemma}
             </Text>
             <Pressable hitSlop={8} onPress={() => void speak(displayLemma)}>
-              <Ionicons name="volume-medium-outline" size={26} color="#9ca3af" />
+              <Ionicons name="volume-medium-outline" size={26} color="#8A867A" />
             </Pressable>
           </View>
           <View className="flex-row items-center gap-2">
@@ -77,7 +77,7 @@ function CardInner({ entry }: { entry: EntryRow }) {
               label={t(`status.${status}`)}
             />
             <Pressable onPress={revealAll} hitSlop={8}>
-              <Text className="text-sm font-semibold text-brand">{t('session.revealAll')}</Text>
+              <Text className="text-sm font-sans-semibold text-brand">{t('session.revealAll')}</Text>
             </Pressable>
           </View>
         </View>

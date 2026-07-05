@@ -36,14 +36,14 @@ export function Accordion({
         className="flex-row items-center justify-between px-4 py-3"
       >
         <View className="flex-1">
-          <Text className="font-semibold">{title}</Text>
+          <Text className="font-sans-semibold">{title}</Text>
           {subtitle ? (
             <Text variant="caption" className="mt-0.5">
               {subtitle}
             </Text>
           ) : null}
         </View>
-        <Ionicons name={open ? 'chevron-up' : 'chevron-down'} size={18} color="#9ca3af" />
+        <Ionicons name={open ? 'chevron-up' : 'chevron-down'} size={18} color="#8A867A" />
       </Pressable>
       {open ? <View className="px-4 pb-3">{children}</View> : null}
     </View>

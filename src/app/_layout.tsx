@@ -1,8 +1,20 @@
 import '@/lib/amplify'; // MUSS zuerst laufen: Polyfills + Amplify.configure()
 import '@/global.css';
 
+import {
+  HankenGrotesk_400Regular,
+  HankenGrotesk_500Medium,
+  HankenGrotesk_600SemiBold,
+  HankenGrotesk_700Bold,
+} from '@expo-google-fonts/hanken-grotesk';
+import { JetBrainsMono_400Regular, JetBrainsMono_700Bold } from '@expo-google-fonts/jetbrains-mono';
+import {
+  SchibstedGrotesk_700Bold,
+  SchibstedGrotesk_800ExtraBold,
+} from '@expo-google-fonts/schibsted-grotesk';
 import { BottomSheetModalProvider } from '@gorhom/bottom-sheet';
 import { PersistQueryClientProvider } from '@tanstack/react-query-persist-client';
+import { useFonts } from 'expo-font';
 import { DarkTheme, DefaultTheme, Stack, ThemeProvider } from 'expo-router';
 import * as SplashScreen from 'expo-splash-screen';
 import { useEffect } from 'react';
@@ -25,6 +37,21 @@ startOutboxAutoReplay();
 
 export default function RootLayout() {
   const colorScheme = useColorScheme();
+  // Design-System-Fonts (Schibsted Grotesk / Hanken Grotesk / JetBrains Mono).
+  // Der Splash bleibt sichtbar, bis die Fonts geladen sind; bei einem Ladefehler
+  // wird trotzdem gestartet (System-Font als Fallback).
+  const [fontsLoaded, fontError] = useFonts({
+    SchibstedGrotesk_700Bold,
+    SchibstedGrotesk_800ExtraBold,
+    HankenGrotesk_400Regular,
+    HankenGrotesk_500Medium,
+    HankenGrotesk_600SemiBold,
+    HankenGrotesk_700Bold,
+    JetBrainsMono_400Regular,
+    JetBrainsMono_700Bold,
+  });
+
+  if (!fontsLoaded && !fontError) return null;
 
   return (
     <GestureHandlerRootView style={{ flex: 1 }}>

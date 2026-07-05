@@ -11,12 +11,18 @@ module.exports = {
   darkMode: 'media',
   theme: {
     extend: {
+      // React Native kennt keine Font-Fallbacks & wählt Gewichte nicht selbst:
+      // jede Schriftstärke ist eine eigene Familie. Darum gewichts-explizite
+      // Aliase (font-sans-semibold statt font-semibold). Geladen in _layout.tsx.
       fontFamily: {
-        // Aktiv erst nach Laden der Fonts (expo-font / @expo-google-fonts).
-        // Bis dahin nicht per Klasse anwenden -> System-Font (kein Crash).
-        sans: ['Hanken Grotesk', 'system-ui', 'sans-serif'],
-        display: ['Schibsted Grotesk', 'system-ui', 'sans-serif'],
-        mono: ['JetBrains Mono', 'ui-monospace', 'monospace'],
+        sans: ['HankenGrotesk_400Regular'],
+        'sans-medium': ['HankenGrotesk_500Medium'],
+        'sans-semibold': ['HankenGrotesk_600SemiBold'],
+        'sans-bold': ['HankenGrotesk_700Bold'],
+        display: ['SchibstedGrotesk_700Bold'],
+        'display-black': ['SchibstedGrotesk_800ExtraBold'],
+        mono: ['JetBrainsMono_400Regular'],
+        'mono-bold': ['JetBrainsMono_700Bold'],
       },
       colors: {
         // ---- Marke / Primär: Pinien-Grün (ersetzt das alte Blau) ----

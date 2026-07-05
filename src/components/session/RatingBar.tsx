@@ -31,7 +31,7 @@ export function RatingBar({
             disabled && 'opacity-50',
           )}
         >
-          <Text className="text-center text-xs font-semibold text-white">
+          <Text className="text-center text-xs font-sans-semibold text-white">
             {t(`status.${rating}`)}
           </Text>
         </Pressable>

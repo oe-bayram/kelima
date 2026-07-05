@@ -34,7 +34,7 @@ export function DeclensionTable({
 
   return (
     <View className="gap-2">
-      {feminine ? <Text className="font-semibold">{t('section.weiblicheForm')}</Text> : null}
+      {feminine ? <Text className="font-sans-semibold">{t('section.weiblicheForm')}</Text> : null}
       {!feminine && (entry.nurPlural || entry.unzaehlbar) ? (
         <View className="flex-row flex-wrap gap-2">
           {entry.nurPlural ? <Badge variant="outline" label={t('badge.nurPlural')} /> : null}

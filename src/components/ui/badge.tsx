@@ -25,7 +25,7 @@ export function Badge({ variant, label, className, textClassName }: BadgeProps) 
   return (
     <View className={cn(badgeVariants({ variant }), className)}>
       <RNText
-        className={cn('text-xs font-medium text-neutral-700 dark:text-neutral-200', textClassName)}
+        className={cn('text-xs font-sans-medium text-neutral-700 dark:text-neutral-200', textClassName)}
       >
         {label}
       </RNText>

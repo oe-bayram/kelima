@@ -32,7 +32,7 @@ export function RevealSection({
           accessibilityRole="button"
           className="items-center rounded-xl border border-dashed border-neutral-300 py-4 dark:border-neutral-700"
         >
-          <Text className="font-semibold text-brand">{revealLabel}</Text>
+          <Text className="font-sans-semibold text-brand">{revealLabel}</Text>
         </Pressable>
       )}
     </View>

@@ -33,7 +33,7 @@ const ACTION_KEY: Record<AuthMode, TranslationKey> = {
 function AuthLink({ label, onPress }: { label: string; onPress: () => void }) {
   return (
     <Pressable onPress={onPress} accessibilityRole="link" hitSlop={8}>
-      <Text className="text-sm font-semibold text-brand">{label}</Text>
+      <Text className="text-sm font-sans-semibold text-brand">{label}</Text>
     </Pressable>
   );
 }
@@ -147,7 +147,7 @@ export default function SignInScreen() {
 
               {showCode ? (
                 <View className="gap-2">
-                  <Text className="text-sm font-medium text-neutral-600 dark:text-neutral-300">
+                  <Text className="text-sm font-sans-medium text-neutral-600 dark:text-neutral-300">
                     {t('auth.code')}
                   </Text>
                   <CodeInput

@@ -33,7 +33,7 @@ export default function TestScreen() {
     <View className="flex-1 bg-white dark:bg-neutral-950" style={{ paddingTop: insets.top }}>
       <View className="flex-row items-center gap-3 px-4 pb-2 pt-1">
         <Pressable hitSlop={8} onPress={() => router.back()} accessibilityRole="button">
-          <Ionicons name="close" size={26} color="#9ca3af" />
+          <Ionicons name="close" size={26} color="#8A867A" />
         </Pressable>
         <View className="flex-1">
           <SessionProgress index={index} total={total} />
@@ -74,7 +74,7 @@ function TestQuestion({
               <View className="items-center gap-3 py-8">
                 <Text
                   className={cn(
-                    'text-center text-4xl font-bold',
+                    'text-center text-4xl font-sans-bold',
                     genus ? GENUS_TEXT_CLASS[genus] : undefined,
                   )}
                 >
@@ -83,7 +83,7 @@ function TestQuestion({
                 <View className="flex-row items-center gap-2">
                   <Badge variant="outline" label={tg(`wortart.${entry.wortart}`)} />
                   <Pressable hitSlop={8} onPress={() => void speak(displayLemma)}>
-                    <Ionicons name="volume-medium-outline" size={24} color="#9ca3af" />
+                    <Ionicons name="volume-medium-outline" size={24} color="#8A867A" />
                   </Pressable>
                 </View>
               </View>

@@ -42,7 +42,7 @@ export const Input = forwardRef<TextInput, InputProps>(function Input(
   return (
     <View className={cn('gap-1.5', containerClassName)}>
       {label ? (
-        <Text className="text-sm font-medium text-neutral-600 dark:text-neutral-300">{label}</Text>
+        <Text className="text-sm font-sans-medium text-neutral-600 dark:text-neutral-300">{label}</Text>
       ) : null}
 
       <View

@@ -142,20 +142,20 @@ export function ConjugationSection({ forms, entry }: { forms: ParadigmForm[]; en
             const rows = indik(tp);
             return rows ? (
               <View key={tp}>
-                <Text className="mb-1 font-semibold">{t(`tempus.${tp}`)}</Text>
+                <Text className="mb-1 font-sans-semibold">{t(`tempus.${tp}`)}</Text>
                 <FiniteTable rows={rows} />
               </View>
             ) : null;
           })}
           {konj1 ? (
             <View>
-              <Text className="mb-1 font-semibold">{t('modus.konjunktiv1')}</Text>
+              <Text className="mb-1 font-sans-semibold">{t('modus.konjunktiv1')}</Text>
               <FiniteTable rows={konj1} />
             </View>
           ) : null}
           {konj2 ? (
             <View>
-              <Text className="mb-1 font-semibold">{t('modus.konjunktiv2')}</Text>
+              <Text className="mb-1 font-sans-semibold">{t('modus.konjunktiv2')}</Text>
               <FiniteTable rows={konj2} />
             </View>
           ) : null}
@@ -163,7 +163,7 @@ export function ConjugationSection({ forms, entry }: { forms: ParadigmForm[]; en
             const rows = passiv(tp);
             return rows ? (
               <View key={`passiv-${tp}`}>
-                <Text className="mb-1 font-semibold">
+                <Text className="mb-1 font-sans-semibold">
                   {t('genusVerbi.passiv')} · {t(`tempus.${tp}`)}
                 </Text>
                 <FiniteTable rows={rows} />

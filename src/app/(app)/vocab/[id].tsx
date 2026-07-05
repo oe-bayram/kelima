@@ -90,7 +90,7 @@ function CardBody({
       <View className="gap-1 px-4 pb-3">
         <View className="flex-row items-start gap-2">
           <Text
-            className={cn('flex-1 text-2xl font-bold', genus ? GENUS_TEXT_CLASS[genus] : undefined)}
+            className={cn('flex-1 text-2xl font-sans-bold', genus ? GENUS_TEXT_CLASS[genus] : undefined)}
           >
             {displayLemma}
           </Text>

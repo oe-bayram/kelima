@@ -89,7 +89,7 @@ export default function SettingsScreen() {
                     active ? 'border-brand bg-brand' : 'border-neutral-300 dark:border-neutral-700',
                   )}
                 >
-                  <Text className={active ? 'font-semibold text-white' : ''}>
+                  <Text className={active ? 'font-sans-semibold text-white' : ''}>
                     {lng === 'de' ? t('settings.languageGerman') : t('settings.languageTurkish')}
                   </Text>
                 </Pressable>
@@ -114,7 +114,7 @@ export default function SettingsScreen() {
               accessibilityLabel={t('settings.speechPreview')}
               className="rounded-xl border border-neutral-300 p-2.5 dark:border-neutral-700"
             >
-              <Ionicons name="volume-medium-outline" size={20} color="#9ca3af" />
+              <Ionicons name="volume-medium-outline" size={20} color="#8A867A" />
             </Pressable>
           </View>
         </Section>

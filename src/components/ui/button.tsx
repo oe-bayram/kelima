@@ -25,7 +25,7 @@ const buttonVariants = cva('flex-row items-center justify-center gap-2 rounded-x
   },
 });
 
-const labelVariants = cva('text-base font-semibold', {
+const labelVariants = cva('text-base font-sans-semibold', {
   variants: {
     variant: {
       default: 'text-white',
