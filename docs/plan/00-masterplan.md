@@ -55,7 +55,7 @@ React-Native-App zum Lernen der Deutsch-B1-Vokabeln (Goethe + DTZ, zusammengefü
 | ------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
 | aws-amplify        | **6.18.x** (+ `@aws-amplify/react-native` 1.3.x, `@react-native-community/netinfo`, `@react-native-async-storage/async-storage`, `react-native-get-random-values`) |
 | Backend-Definition | **@aws-amplify/backend 1.23.x** (`defineAuth`, `defineData`)                                                                                                       |
-| Auth               | Amazon Cognito (E-Mail + Passwort), UI: **@aws-amplify/ui-react-native 2.7.x** Authenticator                                                                       |
+| Auth               | Amazon Cognito (E-Mail + Passwort), UI                                                               |
 | API/DB             | AppSync GraphQL + DynamoDB über `a.model()`                                                                                                                        |
 | Dev-Workflow       | `npx ampx sandbox` (persönliche Cloud-Sandbox), Deploy über Amplify-Pipeline (backend-only)                                                                        |
 | Import             | Node/TS-Skript mit generiertem Data Client (siehe Phase 2)                                                                                                         |

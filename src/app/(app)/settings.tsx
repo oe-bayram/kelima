@@ -1,4 +1,4 @@
-import { useAuthenticator } from '@aws-amplify/ui-react-native';
+import { signOut } from 'aws-amplify/auth';
 import { useTranslation } from 'react-i18next';
 import { Pressable, View } from 'react-native';
 
@@ -7,12 +7,12 @@ import { Screen } from '@/components/ui/screen';
 import { Text } from '@/components/ui/text';
 import { useSettingsStore } from '@/features/settings/useSettingsStore';
 import { SUPPORTED_LANGUAGES } from '@/lib/i18n';
+import { queryClient } from '@/lib/queryClient';
 
 export default function SettingsScreen() {
   const { t } = useTranslation();
   const language = useSettingsStore((state) => state.language);
   const setLanguage = useSettingsStore((state) => state.setLanguage);
-  const { signOut } = useAuthenticator((context) => [context.user]);
 
   return (
     <Screen>
@@ -43,7 +43,15 @@ export default function SettingsScreen() {
         </View>
 
         <View className="mt-auto pb-4">
-          <Button variant="destructive" label={t('actions.signOut')} onPress={() => signOut()} />
+          <Button
+            variant="destructive"
+            label={t('actions.signOut')}
+            onPress={() => {
+              // Nach dem Logout den Query-Cache (inkl. Persistenz) leeren, damit
+              // der nächste Nutzer keine fremden/veralteten Daten sieht.
+              void signOut().finally(() => queryClient.clear());
+            }}
+          />
         </View>
       </View>
     </Screen>

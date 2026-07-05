@@ -45,12 +45,38 @@ const clientStorage = {
   },
 };
 
+/**
+ * `JSON.stringify`/`parse` verlieren `Map` und `Set` (sie werden zu `{}`),
+ * mehrere Queries liefern aber genau das (Progress-/Membership-`Map`,
+ * Favoriten-`Set`). Ohne Reviver crasht der rehydrierte Cache beim ersten
+ * `.values()`/`.size`-Zugriff. Diese getaggte (De-)Serialisierung stellt beide
+ * Typen wieder her; alle anderen Werte laufen unverändert durch.
+ */
+const MAP_TAG = '__kelimaMap';
+const SET_TAG = '__kelimaSet';
+
+function replacer(_key: string, value: unknown): unknown {
+  if (value instanceof Map) return { [MAP_TAG]: Array.from(value.entries()) };
+  if (value instanceof Set) return { [SET_TAG]: Array.from(value.values()) };
+  return value;
+}
+
+function reviver(_key: string, value: unknown): unknown {
+  if (value && typeof value === 'object') {
+    if (MAP_TAG in value) return new Map((value as Record<string, [unknown, unknown][]>)[MAP_TAG]);
+    if (SET_TAG in value) return new Set((value as Record<string, unknown[]>)[SET_TAG]);
+  }
+  return value;
+}
+
 export const persister = createSyncStoragePersister({
   // Cast because the persister types the DOM `Storage` interface, but only
   // getItem/setItem/removeItem are ever used.
   storage: clientStorage as unknown as Storage,
   key: 'KELIMA_QUERY_CACHE',
   throttleTime: 1000,
+  serialize: (client) => JSON.stringify(client, replacer),
+  deserialize: (cached) => JSON.parse(cached, reviver),
 });
 
 /**
@@ -61,5 +87,6 @@ export const persistOptions: Omit<PersistQueryClientOptions, 'queryClient'> = {
   persister,
   maxAge: 1000 * 60 * 60 * 24, // 24 hours
   // buster: bump this string to invalidate all persisted caches on release.
-  buster: '',
+  // 'mapset-1': verwirft die alten Caches, in denen Map/Set als leeres {} lagen.
+  buster: 'mapset-1',
 };

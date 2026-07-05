@@ -101,8 +101,6 @@ Gewählt: **NativeWind 4.2.x + Tailwind CSS 3.4.x** (Primärpfad des Masterplans
 
 ## Bekannte Hinweise
 
-- `pnpm install` zeigt Peer-Warnungen für `@aws-amplify/ui-react-native` (listet React 18 als
-  Peer, wir nutzen React 19). Das ist erwartet und unkritisch (Amplify ↔ New Architecture).
 - `amplify_outputs.json` ist gitignored und wird von `npx ampx sandbox` erzeugt; ohne die Datei
   startet die App nicht (der Client warnt im Dev-Modus). Typecheck/Lint/Tests laufen dennoch grün.
 

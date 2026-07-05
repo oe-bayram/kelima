@@ -50,7 +50,7 @@ Primärpfad **v4.2.x + Tailwind 3.4.x**:
 - [ ] `pnpm create amplify@latest` im Projekt (erzeugt `amplify/`)
 - [ ] `amplify/auth/resource.ts`: `defineAuth({ loginWith: { email: true } })`
 - [ ] `amplify/data/resource.ts`: vorerst Minimal-Schema (z. B. nur `ContentVersion`) — Vollschema kommt in Phase 2
-- [ ] RN-Abhängigkeiten: `pnpm add aws-amplify @aws-amplify/react-native @aws-amplify/ui-react-native @react-native-community/netinfo @react-native-async-storage/async-storage react-native-get-random-values react-native-url-polyfill`
+- [ ] RN-Abhängigkeiten: `pnpm add aws-amplify @aws-amplify/react-native @react-native-community/netinfo @react-native-async-storage/async-storage react-native-get-random-values react-native-url-polyfill`
 - [ ] `npx ampx sandbox` starten → `amplify_outputs.json`
 - [ ] `src/lib/amplify.ts`: `Amplify.configure(outputs)`; Import als Erstes in `app/_layout.tsx`
 

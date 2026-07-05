@@ -1,7 +1,6 @@
 import '@/lib/amplify'; // MUSS zuerst laufen: Polyfills + Amplify.configure()
 import '@/global.css';
 
-import { Authenticator, useAuthenticator } from '@aws-amplify/ui-react-native';
 import { PersistQueryClientProvider } from '@tanstack/react-query-persist-client';
 import { DarkTheme, DefaultTheme, Stack, ThemeProvider } from 'expo-router';
 import * as SplashScreen from 'expo-splash-screen';
@@ -11,6 +10,7 @@ import { useColorScheme } from 'react-native';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 
+import { useAuthSession } from '@/features/auth/useAuthSession';
 import i18n from '@/lib/i18n';
 import { persistOptions, queryClient } from '@/lib/queryClient';
 
@@ -25,9 +25,7 @@ export default function RootLayout() {
         <PersistQueryClientProvider client={queryClient} persistOptions={persistOptions}>
           <I18nextProvider i18n={i18n}>
             <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
-              <Authenticator.Provider>
-                <RootNavigator />
-              </Authenticator.Provider>
+              <RootNavigator />
             </ThemeProvider>
           </I18nextProvider>
         </PersistQueryClientProvider>
@@ -39,10 +37,12 @@ export default function RootLayout() {
 /**
  * Auth-Gate: `Stack.Protected` (das SDK-57-Idiom) blendet abhängig vom
  * Login-Status die (app)- oder (auth)-Gruppe ein. Der Splash bleibt sichtbar,
- * bis Amplify den Auth-Status aufgelöst hat.
+ * bis Amplify den Auth-Status aufgelöst hat. Der Status kommt aus
+ * `useAuthSession` (Amplify-Hub), damit die Navigation sofort auf unsere
+ * direkten signIn/signOut-Calls reagiert.
  */
 function RootNavigator() {
-  const { user, authStatus } = useAuthenticator((context) => [context.user, context.authStatus]);
+  const authStatus = useAuthSession();
 
   useEffect(() => {
     if (authStatus !== 'configuring') {
@@ -50,12 +50,14 @@ function RootNavigator() {
     }
   }, [authStatus]);
 
+  const isAuthenticated = authStatus === 'authenticated';
+
   return (
     <Stack screenOptions={{ headerShown: false }}>
-      <Stack.Protected guard={!!user}>
+      <Stack.Protected guard={isAuthenticated}>
         <Stack.Screen name="(app)" />
       </Stack.Protected>
-      <Stack.Protected guard={!user}>
+      <Stack.Protected guard={!isAuthenticated}>
         <Stack.Screen name="(auth)" />
       </Stack.Protected>
     </Stack>

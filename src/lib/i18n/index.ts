@@ -1,13 +1,9 @@
 /* eslint-disable import/no-named-as-default-member -- i18next's default export intentionally exposes use()/changeLanguage() */
 import { getLocales } from 'expo-localization';
 import i18n from 'i18next';
-import type { LanguageDetectorModule } from 'i18next';
+import type { LanguageDetectorModule, ParseKeys } from 'i18next';
 import { initReactI18next } from 'react-i18next';
 
-import {
-  registerAuthenticatorVocabularies,
-  syncAuthenticatorLanguage,
-} from '../authenticator-i18n';
 import { storage } from '../storage';
 import de from './de/common.json';
 import grammarDe from './de/grammar.json';
@@ -17,6 +13,9 @@ import grammarTr from './tr/grammar.json';
 export const LANGUAGE_STORAGE_KEY = 'settings.language';
 export const SUPPORTED_LANGUAGES = ['de', 'tr'] as const;
 export type AppLanguage = (typeof SUPPORTED_LANGUAGES)[number];
+
+/** Typsicherer Übersetzungs-Schlüssel des `common`-Namespace (für dynamische `t()`-Aufrufe). */
+export type TranslationKey = ParseKeys<'common'>;
 
 const FALLBACK_LNG: AppLanguage = 'de';
 
@@ -48,8 +47,6 @@ const mmkvLanguageDetector: LanguageDetectorModule = {
   },
 };
 
-registerAuthenticatorVocabularies();
-
 void i18n
   .use(mmkvLanguageDetector)
   .use(initReactI18next)
@@ -70,15 +67,10 @@ void i18n
     // Kein compatibilityJSON: 'v3' – Hermes (SDK 57) hat Intl.PluralRules.
   });
 
-// Authenticator-Oberfläche an die erkannte Sprache angleichen.
-syncAuthenticatorLanguage(i18n.language);
-
 /**
  * Sprache zur Laufzeit wechseln (und automatisch in MMKV persistieren).
- * Hält zusätzlich die Amplify-Authenticator-Sprache synchron.
  */
 export function setAppLanguage(lng: AppLanguage): Promise<unknown> {
-  syncAuthenticatorLanguage(lng);
   return i18n.changeLanguage(lng);
 }
 

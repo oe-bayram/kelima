@@ -1,5 +1,5 @@
 import { cva, type VariantProps } from 'class-variance-authority';
-import { Pressable, type PressableProps, Text } from 'react-native';
+import { ActivityIndicator, Pressable, type PressableProps, Text } from 'react-native';
 
 import { cn } from '@/lib/utils';
 
@@ -39,21 +39,46 @@ const labelVariants = cva('text-base font-semibold', {
   },
 });
 
+/** Spinner-Farbe passend zur Textfarbe der jeweiligen Variante. */
+const spinnerColor: Record<NonNullable<VariantProps<typeof buttonVariants>['variant']>, string> = {
+  default: '#ffffff',
+  destructive: '#ffffff',
+  secondary: '#111827',
+  outline: '#111827',
+  ghost: '#208AEF',
+};
+
 type ButtonProps = PressableProps &
   VariantProps<typeof buttonVariants> & {
     label: string;
+    /** Zeigt einen Spinner statt des Labels und deaktiviert den Button. */
+    loading?: boolean;
     className?: string;
   };
 
-export function Button({ label, variant, size, className, disabled, ...props }: ButtonProps) {
+export function Button({
+  label,
+  variant,
+  size,
+  className,
+  disabled,
+  loading,
+  ...props
+}: ButtonProps) {
+  const isDisabled = disabled || loading;
   return (
     <Pressable
       accessibilityRole="button"
-      disabled={disabled}
-      className={cn(buttonVariants({ variant, size }), disabled && 'opacity-50', className)}
+      accessibilityState={{ disabled: !!isDisabled, busy: !!loading }}
+      disabled={isDisabled}
+      className={cn(buttonVariants({ variant, size }), isDisabled && 'opacity-50', className)}
       {...props}
     >
-      <Text className={labelVariants({ variant })}>{label}</Text>
+      {loading ? (
+        <ActivityIndicator color={spinnerColor[variant ?? 'default']} />
+      ) : (
+        <Text className={labelVariants({ variant })}>{label}</Text>
+      )}
     </Pressable>
   );
 }
