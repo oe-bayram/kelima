@@ -1,12 +1,14 @@
-# Lernwort — Design System
+# Kelima — Design System
 
-A design system for **Lernwort**, a React-Native app for learning German **B1 vocabulary** (Goethe-Zertifikat B1 / Deutsch-Test für Zuwanderer). Learners study vocabulary chapter-by-chapter as cards, get quizzed by another person, rate how well they know each word, repeat problem words, and keep progress via cloud sync. Optional Turkish translations are shown alongside.
+A design system for **Kelima**, a React-Native app for learning German **B1 vocabulary** (Goethe-Zertifikat B1 / Deutsch-Test für Zuwanderer). Learners study vocabulary chapter-by-chapter as cards, get quizzed by another person, rate how well they know each word, repeat problem words, and keep progress via cloud sync. Optional Turkish translations are shown alongside.
 
-The brief: **modern, beautiful, minimal, and made for learning.** This system delivers that with a calm warm-paper palette, a grounded pine-green primary, a clear typographic hierarchy that puts the *Lemma* (the word) center stage, and a didactic 5-step learning-status color language.
+The brief: **modern, beautiful, minimal, and made for learning.** This system delivers that with a calm ice-paper palette, the Kelima ocean-blue primary, a clear typographic hierarchy that puts the *Lemma* (the word) center stage, and a didactic 5-step learning-status color language.
 
-> **Local mirror.** This folder is the offline copy of the claude.ai/design project
-> "Lernwort — B1 Vokabeltrainer Design System". Use it as the source of truth for
-> the app's look — you do not need to reopen the design project. See `INDEX.md`.
+> **Local mirror.** This folder is the offline copy of the claude.ai/design
+> project (id `bca96c9e-…`), the Kelima design system. Use it as the source of
+> truth for the app's look — you do not need to reopen the design project.
+> Colors are extracted from the official **Kelima logo** (`assets/logo.svg`):
+> a tilted flashcard "K" over an open book on an ocean gradient. See `INDEX.md`.
 
 ---
 
@@ -40,11 +42,12 @@ The UI language is **German**, addressing the learner informally with **„du"**
 **Overall vibe.** Quiet, focused, paper-like. The screen mostly recedes so the word is the hero. Think a calm study app — closer to a well-made reading app than to a noisy game.
 
 **Color.**
-- *Neutrals are warm* — backgrounds are a paper off-white (`--neutral-50` #FAFAF8), surfaces pure white, ink a warm near-black (#1A1A18). This warmth is essential; never swap in cold grays.
-- *Primary is pine green* (`--primary-500` #1F8160) — growth and learning, grounded and adult. Used for the main CTA, active nav, focus rings, brand mark. Hover/press go one step darker (600).
-- *Accent is warm clay* (#C8703D) — sparingly, for streaks and the occasional highlight (e.g. the *7 Tage* streak badge).
-- *Status progression* is didactic and reads left→right as mastery grows: **red → amber → green → blue** (Nicht gewusst → Schwer → Kann ich → Sicher), with `new` a neutral gray. Each status has a soft tint bg, a readable fg, a border, and a saturated solid (for dots, meters, charts). Always use the tokens / `StatusBadge`, never hand-pick.
-- A **dark theme** is provided under `[data-theme="dark"]`: same warmth, lifted greens for contrast.
+- *Neutrals are cool* — backgrounds are an ice off-white (`--neutral-50` #F7F9FB), surfaces pure white, ink the brand navy (#232B57). Text is never pure black — always the navy ramp.
+- *Primary is Kelima blue* (`--primary-500` #1E86B8, deepening to the brand navy #204A94 at 700) — taken straight from the logo gradient. Used for the main CTA, active nav, focus rings. Hover/press go one step darker (600).
+- *Accent is teal-green* (`--accent-500` #2CAF88, from the logo's green end and the "i"-dot #33B4A5) — sparingly, for streaks, success and the occasional highlight (e.g. the *7 Tage* streak badge, favorite stars).
+- *The brand gradient* (`--gradient-brand`, green→teal→blue→navy from the logo) is reserved for brand moments: splash/login hero, app icon, marketing. Never as a component background.
+- *Status progression* is didactic and reads left→right as mastery grows: **red → amber → teal-green → navy-blue** (Nicht gewusst → Schwer → Kann ich → Sicher), with `new` a neutral gray. "Kann ich" uses the brand green, "Sicher" the brand blue — mastery literally converges on the brand colors. Each status has a soft tint bg, a readable fg, a border, and a saturated solid (for dots, meters, charts). Always use the tokens / `StatusBadge`, never hand-pick.
+- A **dark theme** is provided under `[data-theme="dark"]`: same coolness, lifted blues for contrast.
 
 **Type.**
 - *Display* — **Schibsted Grotesk** (bold, tight tracking): the Lemma, screen titles, big stat numbers.
@@ -56,11 +59,11 @@ The UI language is **German**, addressing the learner informally with **„du"**
 
 **Corners.** Soft, modern, *not* bubbly: buttons & inputs 12px, cards 16px, the focused vocab surface up to 20px, pills fully round.
 
-**Elevation.** Low, warm-tinted shadows (`--shadow-sm`→`xl`). Cards rest on `shadow-sm`; raised/important cards on `shadow-md`; interactive cards lift to `shadow-md` on hover and tighten their border. Sheets/modals use `shadow-lg`/`xl`. No hard or colored drop shadows.
+**Elevation.** Low, cool navy-tinted shadows (`--shadow-sm`→`xl`). Cards rest on `shadow-sm`; raised/important cards on `shadow-md`; interactive cards lift to `shadow-md` on hover and tighten their border. Sheets/modals use `shadow-lg`/`xl`. No hard or colored drop shadows.
 
-**Borders.** Hairline `1px var(--border)` (warm light gray) is the default separator and card outline. Dividers inside cards are even lighter (`--divider`). Inputs use a 1.5px border that turns green + a soft ring on focus.
+**Borders.** Hairline `1px var(--border)` (cool light gray) is the default separator and card outline. Dividers inside cards are even lighter (`--divider`). Inputs use a 1.5px border that turns primary-blue + a soft ring on focus.
 
-**Backgrounds.** Flat warm paper. **No gradients**, no photographic hero imagery, no textures. Depth comes from white cards on the off-white app background plus soft shadows. The bottom tab bar uses a translucent surface + blur.
+**Backgrounds.** Flat ice paper. **No gradients on surfaces** — the brand gradient exists as a token but is reserved for brand moments (login hero, icon, marketing). No photographic hero imagery, no textures. Depth comes from white cards on the ice-white app background plus soft shadows. The bottom tab bar uses a translucent surface + blur.
 
 **Animation.** Restrained and quick. Buttons scale to ~0.97 on press (≈80ms); cards lift shadow on hover (≈180ms); progress/meter bars ease their width (`cubic-bezier(.2,.7,.2,1)`, ~400ms). No bounces, no parallax, respect reduced-motion.
 
@@ -72,7 +75,7 @@ The UI language is **German**, addressing the learner informally with **„du"**
 
 - **System: [Lucide](https://lucide.dev)** — fine, line-based, 2px stroke. In the web design kit it is rendered through the `Icon` component. In the **React-Native app** use `@expo/vector-icons` (Lucide is the visual reference; match names/weights). Common icons: `house` / `layers` / `chart-no-axes-column` (tabs), `volume-2` (TTS), `star` (favorite), `play` (learn), `users` (test), `eye` (reveal), `alarm-clock` (due), `flame` (streak), `target` (problem words), `mail` / `lock` / `user` (auth).
 - **Stroke weight** is consistent (2; active nav items nudge to ~2.4). Don't mix in filled icon sets.
-- **Brand mark** (`assets/mark.svg`, `assets/logo.svg`): an original stacked-flashcards glyph with a check, in primary green — the only custom SVG art.
+- **Brand mark** (`assets/logo.svg`): the Kelima logo — a tilted flashcard "K" over an open book on the ocean gradient (navy #204A94 → blue #219EC9 → teal-green #2CAF88), navy ink #232B57. The only custom art; everything else is Lucide.
 - **No emoji**, no unicode-glyph icons.
 
 ---
@@ -80,5 +83,6 @@ The UI language is **German**, addressing the learner informally with **„du"**
 ## CAVEATS
 
 1. **Fonts are Google Fonts.** Schibsted Grotesk / Hanken Grotesk / JetBrains Mono. In the app, load them via `expo-font` (`@expo-google-fonts/*`) or bundled TTFs; otherwise the family falls back to system sans.
-2. **Status colors** use a red→amber→green→blue progression — this is intentional and didactic.
-3. **Icons = Lucide** as the visual language; the RN app uses `@expo/vector-icons` equivalents.
+2. **Colors derive from the Kelima logo** — ocean-blue primary, navy ink, teal-green accent. Type, corners and density remain the system's proposal.
+3. **Status colors** use a red→amber→teal-green→navy-blue progression — this is intentional and didactic, and converges on the brand colors.
+4. **Icons = Lucide** as the visual language; the RN app uses `@expo/vector-icons` equivalents.

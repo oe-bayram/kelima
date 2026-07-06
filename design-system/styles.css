@@ -1,4 +1,4 @@
-/* Lernwort Design System — global entry point.
+/* Kelima Design System — global entry point.
    Consumers link this one file. Keep it as @import lines only. */
 @import url("./tokens/fonts.css");
 @import url("./tokens/colors.css");

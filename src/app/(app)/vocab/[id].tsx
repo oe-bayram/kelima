@@ -107,11 +107,11 @@ function CardBody({
             <Ionicons
               name={isFav ? 'star' : 'star-outline'}
               size={24}
-              color={isFav ? '#C8703D' : '#8A867A'}
+              color={isFav ? '#2CAF88' : '#77839A'}
             />
           </Pressable>
           <Pressable hitSlop={8} onPress={() => void speak(displayLemma)}>
-            <Ionicons name="volume-medium-outline" size={24} color="#8A867A" />
+            <Ionicons name="volume-medium-outline" size={24} color="#77839A" />
           </Pressable>
         </View>
         {entry.translationTr ? (

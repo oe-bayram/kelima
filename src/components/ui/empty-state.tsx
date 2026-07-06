@@ -20,7 +20,7 @@ export function EmptyState({
 }) {
   return (
     <View className="items-center justify-center gap-3 px-8 py-12">
-      <Ionicons name={icon} size={44} color="#8A867A" />
+      <Ionicons name={icon} size={44} color="#77839A" />
       <Text variant="subtitle" className="text-center">
         {title}
       </Text>

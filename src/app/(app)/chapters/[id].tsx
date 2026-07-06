@@ -59,7 +59,7 @@ function EntryRowItem({
         <Ionicons
           name={isFav ? 'star' : 'star-outline'}
           size={20}
-          color={isFav ? '#C8703D' : '#8A867A'}
+          color={isFav ? '#2CAF88' : '#77839A'}
         />
       </Pressable>
     </Pressable>
@@ -135,7 +135,7 @@ export default function ChapterDetailScreen() {
           value={search}
           onChangeText={setSearch}
           placeholder={t('filter.search')}
-          placeholderTextColor="#8A867A"
+          placeholderTextColor="#77839A"
           autoCapitalize="none"
           className="rounded-xl border border-neutral-300 px-3 py-2 text-base text-neutral-900 dark:border-neutral-700 dark:text-white"
         />

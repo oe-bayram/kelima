@@ -46,9 +46,9 @@ type Variant = NonNullable<VariantProps<typeof buttonVariants>['variant']>;
 const contentColor: Record<Variant, string> = {
   default: '#ffffff',
   destructive: '#ffffff',
-  secondary: '#1A1A18',
-  outline: '#1A1A18',
-  ghost: '#1A6E51', // primary-600 (Pinien-Grün)
+  secondary: '#232B57',
+  outline: '#232B57',
+  ghost: '#1B6FA4', // primary-600 (Ozean-Blau)
 };
 
 type ButtonProps = PressableProps &

@@ -1,76 +1,84 @@
-/* Lernwort — Color system
-   A calm, modern learning palette: warm paper neutrals, a grounded pine-green
-   primary (growth, not childish), and a didactic 5-step status progression
-   (neu → nicht gewusst → schwer → kann ich → sicher) that reads red→amber→green→blue.
-   Light is primary; a dark scope follows. */
+/* Kelima — Color system
+   Derived from the brand logo: an ocean gradient (navy #204A94 → blue #219EC9 →
+   teal-green #2CAF88), navy ink #232B57, teal accent #33B4A5, ice-blue #D1E9FA.
+   Cool, modern, calm. Light is primary; a dark scope follows.
+   Status progression stays didactic: red → amber → teal-green → navy-blue. */
 
 :root {
-  /* ---- Brand primary: pine green ---- */
-  --primary-50:  #E9F5EF;
-  --primary-100: #CFE9DD;
-  --primary-200: #A6D6C1;
-  --primary-300: #6FBF9C;
-  --primary-400: #3FA67D;
-  --primary-500: #1F8160;  /* base */
-  --primary-600: #1A6E51;  /* hover / pressed */
-  --primary-700: #14543E;
-  --primary-800: #0E3C2D;
-  --primary-900: #0A2C21;
+  /* ---- Brand gradient stops (use sparingly, hero/brand moments only) ---- */
+  --brand-navy:  #204A94;
+  --brand-blue:  #219EC9;
+  --brand-green: #2CAF88;
+  --brand-ink:   #232B57;
+  --brand-ice:   #D1E9FA;
+  --gradient-brand: linear-gradient(135deg, #2CAF88 0%, #25A5AC 28%, #219EC9 62%, #204A94 100%); /* @kind color */
 
-  /* ---- Accent: warm clay (secondary actions, highlights, streaks) ---- */
-  --accent-50:  #FBEFE7;
-  --accent-100: #F5D9C7;
-  --accent-300: #E5A579;
-  --accent-500: #C8703D;
-  --accent-600: #AE5C2E;
+  /* ---- Primary: Kelima blue ---- */
+  --primary-50:  #EAF4FB;
+  --primary-100: #D1E9FA;  /* = brand ice */
+  --primary-200: #A3D4EE;
+  --primary-300: #64B7DE;
+  --primary-400: #35A0CE;
+  --primary-500: #1E86B8;  /* base */
+  --primary-600: #1B6FA4;  /* hover / pressed */
+  --primary-700: #205490;  /* ≈ brand navy */
+  --primary-800: #1F3D74;
+  --primary-900: #232B57;  /* = brand ink */
 
-  /* ---- Warm neutrals (paper) ---- */
+  /* ---- Accent: teal-green (from the gradient / i-dot) ---- */
+  --accent-50:  #E6F6F0;
+  --accent-100: #C6EBDE;
+  --accent-300: #6FCDAC;
+  --accent-500: #2CAF88;
+  --accent-600: #1F9372;
+
+  /* ---- Cool neutrals (ice paper) ---- */
   --neutral-0:   #FFFFFF;
-  --neutral-50:  #FAFAF8;
-  --neutral-100: #F3F2EC;
-  --neutral-150: #ECEAE2;
-  --neutral-200: #E3E1D7;
-  --neutral-300: #D2CFC2;
-  --neutral-400: #B0AC9C;
-  --neutral-500: #8A867A;
-  --neutral-600: #6A6760;
-  --neutral-700: #4C4A44;
-  --neutral-800: #312F2B;
-  --neutral-900: #1A1A18;
+  --neutral-50:  #F7F9FB;
+  --neutral-100: #EFF3F7;
+  --neutral-150: #E7ECF2;
+  --neutral-200: #DCE3EB;
+  --neutral-300: #C6D0DC;
+  --neutral-400: #9CA9BC;
+  --neutral-500: #77839A;
+  --neutral-600: #5A6580;
+  --neutral-700: #414B66;
+  --neutral-800: #2E3550;
+  --neutral-900: #232B57;  /* brand ink */
 
   /* ---- Learning status (5 levels) ---- */
-  --status-new-fg:        #6A6760;
-  --status-new-bg:        #EFEEE8;
-  --status-new-border:    #DCDAD0;
+  --status-new-fg:        #5A6580;
+  --status-new-bg:        #EEF1F5;
+  --status-new-border:    #DAE0E8;
 
-  --status-unknown-fg:    #B23A2E;  /* Nicht gewusst */
-  --status-unknown-bg:    #FAEAE7;
-  --status-unknown-border:#F0CFC9;
+  --status-unknown-fg:    #B3382F;  /* Nicht gewusst */
+  --status-unknown-bg:    #FBEBE9;
+  --status-unknown-border:#F2CFCA;
 
-  --status-hard-fg:       #A06A12;  /* Schwer */
-  --status-hard-bg:       #F8EFD7;
-  --status-hard-border:   #EDDBAE;
+  --status-hard-fg:       #9A6A0B;  /* Schwer */
+  --status-hard-bg:       #FAF0D8;
+  --status-hard-border:   #EDDCAC;
 
-  --status-known-fg:      #1A6E51;  /* Kann ich */
-  --status-known-bg:      #E4F1EA;
-  --status-known-border:  #C4E2D2;
+  --status-known-fg:      #177D62;  /* Kann ich — brand teal-green */
+  --status-known-bg:      #E2F4ED;
+  --status-known-border:  #BFE6D6;
 
-  --status-secure-fg:     #2D62C9;  /* Sicher */
-  --status-secure-bg:     #E8EEFB;
-  --status-secure-border: #CBD9F4;
+  --status-secure-fg:     #24549E;  /* Sicher — brand navy-blue */
+  --status-secure-bg:     #E8F0FB;
+  --status-secure-border: #C9DBF4;
 
   /* Solid status dots / fills (for charts, progress) */
-  --status-new-solid:     #A8A498;
-  --status-unknown-solid: #C0392E;
-  --status-hard-solid:    #C98A1E;
-  --status-known-solid:   #1F8160;
-  --status-secure-solid:  #2D62C9;
+  --status-new-solid:     #9CA9BC;
+  --status-unknown-solid: #C4483E;
+  --status-hard-solid:    #D19A26;
+  --status-known-solid:   #2CAF88;
+  --status-secure-solid:  #2E66BD;
 
   /* ---- Feedback ---- */
-  --success: #1F8160;
-  --warning: #C98A1E;
-  --danger:  #C0392E;
-  --info:    #2D62C9;
+  --success: #2CAF88;
+  --warning: #D19A26;
+  --danger:  #C4483E;
+  --info:    #219EC9;
 
   /* ---- Semantic surface & text aliases (theme-aware) ---- */
   --bg-app:         var(--neutral-50);
@@ -89,41 +97,41 @@
   --border-strong:  var(--neutral-300);
   --divider:        var(--neutral-150);
 
-  --overlay:        rgba(26, 26, 24, 0.40);
+  --overlay:        rgba(35, 43, 87, 0.42);
 }
 
 /* ---------- Dark theme ---------- */
 [data-theme="dark"] {
-  --primary-50:  #0C2A20;
-  --primary-100: #103625;
-  --primary-200: #15583F;
-  --primary-300: #1E7A57;
-  --primary-400: #2E9772;
-  --primary-500: #41B88C;  /* lifted for contrast on dark */
-  --primary-600: #5CC8A0;
-  --primary-700: #84D8BA;
+  --primary-50:  #16283E;
+  --primary-100: #1B3452;
+  --primary-200: #1F4A74;
+  --primary-300: #226499;
+  --primary-400: #2C85BC;
+  --primary-500: #45A3D6;  /* lifted for contrast on dark */
+  --primary-600: #6BB8E0;
+  --primary-700: #97CDEB;
 
-  --accent-500: #E0905E;
-  --accent-600: #EBA678;
+  --accent-500: #3FC49C;
+  --accent-600: #63D2B0;
 
-  --neutral-0:   #1A1B19;
-  --neutral-50:  #141513;
-  --neutral-100: #1F211E;
-  --neutral-150: #272925;
-  --neutral-200: #31332E;
-  --neutral-300: #3D403A;
-  --neutral-400: #5C5F57;
-  --neutral-500: #8A8D83;
-  --neutral-600: #A7A99F;
-  --neutral-700: #C6C8BE;
-  --neutral-800: #E2E3DC;
-  --neutral-900: #F4F4EF;
+  --neutral-0:   #191D2E;
+  --neutral-50:  #141724;
+  --neutral-100: #1D2133;
+  --neutral-150: #252A3F;
+  --neutral-200: #2F354C;
+  --neutral-300: #3B425C;
+  --neutral-400: #59617D;
+  --neutral-500: #848CA5;
+  --neutral-600: #A2A9BE;
+  --neutral-700: #C2C7D6;
+  --neutral-800: #DFE2EB;
+  --neutral-900: #F2F4F8;
 
-  --status-new-fg:        #A7A99F;  --status-new-bg:        #24261F;  --status-new-border:    #34362E;
-  --status-unknown-fg:    #F0938A;  --status-unknown-bg:    #321E1B;  --status-unknown-border:#4A2823;
-  --status-hard-fg:       #E6B85C;  --status-hard-bg:       #2F2716;  --status-hard-border:   #463A1E;
-  --status-known-fg:      #5CC8A0;  --status-known-bg:      #15291F;  --status-known-border:  #1F4232;
-  --status-secure-fg:     #87A8F0;  --status-secure-bg:     #1C2540;  --status-secure-border: #2C3A63;
+  --status-new-fg:        #A2A9BE;  --status-new-bg:        #222639;  --status-new-border:    #323851;
+  --status-unknown-fg:    #F0938A;  --status-unknown-bg:    #351F22;  --status-unknown-border:#4E2A2B;
+  --status-hard-fg:       #E4BA5E;  --status-hard-bg:       #302818;  --status-hard-border:   #483C20;
+  --status-known-fg:      #4FCBA3;  --status-known-bg:      #152B26;  --status-known-border:  #1F453B;
+  --status-secure-fg:     #85AEED;  --status-secure-bg:     #1B2742;  --status-secure-border: #2A3D66;
 
   --bg-app:         var(--neutral-50);
   --surface:        var(--neutral-100);
@@ -134,7 +142,7 @@
   --text-primary:   var(--neutral-900);
   --text-secondary: var(--neutral-600);
   --text-tertiary:  var(--neutral-500);
-  --text-on-primary:#0A2018;
+  --text-on-primary:#0E1A2C;
   --text-link:      var(--primary-600);
 
   --border:         var(--neutral-200);

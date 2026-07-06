@@ -27,8 +27,8 @@ export const Input = forwardRef<TextInput, InputProps>(function Input(
   const scheme = useColorScheme();
   const [hidden, setHidden] = useState(true);
   const [focused, setFocused] = useState(false);
-  const placeholderColor = scheme === 'dark' ? '#5C5F57' : '#B0AC9C';
-  const iconColor = scheme === 'dark' ? '#8A8D83' : '#8A867A';
+  const placeholderColor = scheme === 'dark' ? '#59617D' : '#9CA9BC';
+  const iconColor = scheme === 'dark' ? '#848CA5' : '#77839A';
 
   const handleFocus: NonNullable<TextInputProps['onFocus']> = (e) => {
     setFocused(true);

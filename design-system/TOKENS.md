@@ -2,59 +2,63 @@
 
 Vollständige Werte in `tokens/`. Diese Tabelle ist zum schnellen Nachschlagen.
 
+## Marken-Verlauf (nur Brand-Momente: Splash/Login-Hero, Icon)
+`--gradient-brand` = `linear-gradient(135deg, #2CAF88 0%, #25A5AC 28%, #219EC9 62%, #204A94 100%)` (grün→teal→blau→navy, aus dem Logo). Stops: navy `#204A94` · blue `#219EC9` · green `#2CAF88` · ink `#232B57` · ice `#D1E9FA`. Nie als Komponenten-Hintergrund.
+
 ## Farben — Light / Dark
 
-### Primär (Pinien-Grün)
+### Primär (Kelima Ozean-Blau)
 | Token | Light | Dark |
 |---|---|---|
-| `primary-50` | `#E9F5EF` | `#0C2A20` |
-| `primary-100` | `#CFE9DD` | `#103625` |
-| `primary-200` | `#A6D6C1` | `#15583F` |
-| `primary-300` | `#6FBF9C` | `#1E7A57` |
-| `primary-400` | `#3FA67D` | `#2E9772` |
-| `primary-500` (base) | `#1F8160` | `#41B88C` |
-| `primary-600` (hover/press) | `#1A6E51` | `#5CC8A0` |
-| `primary-700` | `#14543E` | `#84D8BA` |
-| `primary-800` | `#0E3C2D` | – |
-| `primary-900` | `#0A2C21` | – |
+| `primary-50` | `#EAF4FB` | `#16283E` |
+| `primary-100` | `#D1E9FA` | `#1B3452` |
+| `primary-200` | `#A3D4EE` | `#1F4A74` |
+| `primary-300` | `#64B7DE` | `#226499` |
+| `primary-400` | `#35A0CE` | `#2C85BC` |
+| `primary-500` (base) | `#1E86B8` | `#45A3D6` |
+| `primary-600` (hover/press) | `#1B6FA4` | `#6BB8E0` |
+| `primary-700` (≈Navy) | `#205490` | `#97CDEB` |
+| `primary-800` | `#1F3D74` | – |
+| `primary-900` (=Marken-Tinte) | `#232B57` | – |
 
-### Akzent (warmes Clay)
-`accent-500` `#C8703D` (dark `#E0905E`) · `accent-600` `#AE5C2E` (dark `#EBA678`) · `accent-50` `#FBEFE7` · `accent-100` `#F5D9C7` · `accent-300` `#E5A579`
+### Akzent (Teal-Grün)
+`accent-500` `#2CAF88` (dark `#3FC49C`) · `accent-600` `#1F9372` (dark `#63D2B0`) · `accent-50` `#E6F6F0` · `accent-100` `#C6EBDE` · `accent-300` `#6FCDAC`
 
-### Neutrals (warmes Papier)
+### Neutrals (kühles Ice, Navy-getönt)
 | Token | Light | Dark |
 |---|---|---|
-| `neutral-0` | `#FFFFFF` | `#1A1B19` |
-| `neutral-50` | `#FAFAF8` | `#141513` |
-| `neutral-100` | `#F3F2EC` | `#1F211E` |
-| `neutral-150` | `#ECEAE2` | `#272925` |
-| `neutral-200` | `#E3E1D7` | `#31332E` |
-| `neutral-300` | `#D2CFC2` | `#3D403A` |
-| `neutral-400` | `#B0AC9C` | `#5C5F57` |
-| `neutral-500` | `#8A867A` | `#8A8D83` |
-| `neutral-600` | `#6A6760` | `#A7A99F` |
-| `neutral-700` | `#4C4A44` | `#C6C8BE` |
-| `neutral-800` | `#312F2B` | `#E2E3DC` |
-| `neutral-900` | `#1A1A18` | `#F4F4EF` |
+| `neutral-0` | `#FFFFFF` | `#191D2E` |
+| `neutral-50` | `#F7F9FB` | `#141724` |
+| `neutral-100` | `#EFF3F7` | `#1D2133` |
+| `neutral-150` | `#E7ECF2` | `#252A3F` |
+| `neutral-200` | `#DCE3EB` | `#2F354C` |
+| `neutral-300` | `#C6D0DC` | `#3B425C` |
+| `neutral-400` | `#9CA9BC` | `#59617D` |
+| `neutral-500` | `#77839A` | `#848CA5` |
+| `neutral-600` | `#5A6580` | `#A2A9BE` |
+| `neutral-700` | `#414B66` | `#C2C7D6` |
+| `neutral-800` | `#2E3550` | `#DFE2EB` |
+| `neutral-900` | `#232B57` | `#F2F4F8` |
 
 ### Lernstatus (fg / bg / border / solid)
 | Status | fg (light) | bg (light) | border (light) | solid |
 |---|---|---|---|---|
-| `new` (Neu) | `#6A6760` | `#EFEEE8` | `#DCDAD0` | `#A8A498` |
-| `unknown` (Nicht gewusst) | `#B23A2E` | `#FAEAE7` | `#F0CFC9` | `#C0392E` |
-| `hard` (Schwer) | `#A06A12` | `#F8EFD7` | `#EDDBAE` | `#C98A1E` |
-| `known` (Kann ich) | `#1A6E51` | `#E4F1EA` | `#C4E2D2` | `#1F8160` |
-| `secure` (Sicher) | `#2D62C9` | `#E8EEFB` | `#CBD9F4` | `#2D62C9` |
+| `new` (Neu) | `#5A6580` | `#EEF1F5` | `#DAE0E8` | `#9CA9BC` |
+| `unknown` (Nicht gewusst) | `#B3382F` | `#FBEBE9` | `#F2CFCA` | `#C4483E` |
+| `hard` (Schwer) | `#9A6A0B` | `#FAF0D8` | `#EDDCAC` | `#D19A26` |
+| `known` (Kann ich) | `#177D62` | `#E2F4ED` | `#BFE6D6` | `#2CAF88` |
+| `secure` (Sicher) | `#24549E` | `#E8F0FB` | `#C9DBF4` | `#2E66BD` |
 
-Dark fg: new `#A7A99F` · unknown `#F0938A` · hard `#E6B85C` · known `#5CC8A0` · secure `#87A8F0` (bg/border siehe `colors.css`).
+Dark fg: new `#A2A9BE` · unknown `#F0938A` · hard `#E4BA5E` · known `#4FCBA3` · secure `#85AEED` (bg/border siehe `colors.css`).
+„Kann ich" nutzt das Marken-Grün, „Sicher" das Marken-Blau — Meisterung konvergiert auf die Markenfarben.
 
 ### Semantik / Feedback
-`success` `#1F8160` · `warning` `#C98A1E` · `danger` `#C0392E` · `info` `#2D62C9`
+`success` `#2CAF88` · `warning` `#D19A26` · `danger` `#C4483E` · `info` `#219EC9`
 
 ### Flächen & Text (theme-aware Aliase)
 `bg-app` = neutral-50 · `surface` = neutral-0 (dark: neutral-100) · `surface-sunken` = neutral-100 · `surface-inset` = neutral-150 ·
-`text-primary` = neutral-900 · `text-secondary` = neutral-600 · `text-tertiary` = neutral-500 · `text-on-primary` = #FFF (dark #0A2018) · `text-link` = primary-600 ·
-`border` = neutral-200 · `border-strong` = neutral-300 · `divider` = neutral-150 · `overlay` = rgba(26,26,24,.40)
+`text-primary` = neutral-900 · `text-secondary` = neutral-600 · `text-tertiary` = neutral-500 · `text-on-primary` = #FFF (dark #0E1A2C) · `text-link` = primary-600 ·
+`border` = neutral-200 · `border-strong` = neutral-300 · `divider` = neutral-150 · `overlay` = rgba(35,43,87,.42)
 
 ## Typografie
 - Familien: display **Schibsted Grotesk**, text **Hanken Grotesk**, mono **JetBrains Mono**
@@ -71,6 +75,6 @@ Semantisch: gap-inline 8 · gap-stack 12 · gap-section 24 · pad-card 20 · pad
 ## Radii
 xs 6 · sm 10 · md 12 (Buttons/Inputs) · lg 16 (Cards) · xl 20 (Fokus-Vokabelkarte) · 2xl 26 · full 999
 
-## Elevation (warm getönt)
+## Elevation (kühl navy-getönt)
 xs · sm (Cards Ruhe) · md (raised / Hover) · lg (Sheets) · xl (Modal). Werte in `shadows.css`.
 Ring: `--ring` = `0 0 0 3px var(--primary-100)`.

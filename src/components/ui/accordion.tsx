@@ -43,7 +43,7 @@ export function Accordion({
             </Text>
           ) : null}
         </View>
-        <Ionicons name={open ? 'chevron-up' : 'chevron-down'} size={18} color="#8A867A" />
+        <Ionicons name={open ? 'chevron-up' : 'chevron-down'} size={18} color="#77839A" />
       </Pressable>
       {open ? <View className="px-4 pb-3">{children}</View> : null}
     </View>

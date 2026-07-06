@@ -1,6 +1,6 @@
 # Design-System — lokaler Spiegel (Kelima)
 
-Lokale Kopie des claude.ai/design-Projekts **„Lernwort — B1 Vokabeltrainer Design System"**
+Lokale Kopie des claude.ai/design-Projekts **„Kelima — B1 Vokabeltrainer Design System"**
 (`bca96c9e-b6ed-4e38-be3f-83e80182d3db`). Ab jetzt ist dieser Ordner die Quelle der
 Wahrheit für das App-Design — das Design-Projekt muss nicht mehr geöffnet werden.
 
@@ -12,10 +12,10 @@ design-system/
 ├─ SKILL.md             ← Skill-Header (Kurzfakten)
 ├─ styles.css           ← Einstiegspunkt, @importiert alle Tokens
 ├─ tokens/              ← die einzige Wertequelle
-│  ├─ colors.css        ← Primär (Pinien-Grün), Neutrals (warm), Status (5), + Dark-Theme
+│  ├─ colors.css        ← Primär (Ozean-Blau), Neutrals (kühl/Ice), Status (5), Marken-Verlauf, + Dark-Theme
 │  ├─ typography.css    ← Schibsted/Hanken/JetBrains, Type-Scale, semantische Rollen
 │  ├─ spacing.css radii.css shadows.css fonts.css base.css
-├─ assets/              ← logo.svg, mark.svg (Original-Markenzeichen, Grün)
+├─ assets/              ← logo.svg (Kelima-Logo, Ozean-Verlauf; icon.png liegt im Design-Projekt)
 ├─ components/          ← Referenz-Implementierungen (Web-React) + Specs
 │  ├─ core/    Badge, Button, Card, Icon, IconButton
 │  ├─ forms/   Input, PasswordInput*, CodeInput*, SegmentedControl

@@ -1,4 +1,4 @@
-/* Lernwort — base resets & helpers (kept minimal; tokens do the heavy lifting). */
+/* Kelima — base resets & helpers (kept minimal; tokens do the heavy lifting). */
 *, *::before, *::after { box-sizing: border-box; }
 
 body {

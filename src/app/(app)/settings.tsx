@@ -114,7 +114,7 @@ export default function SettingsScreen() {
               accessibilityLabel={t('settings.speechPreview')}
               className="rounded-xl border border-neutral-300 p-2.5 dark:border-neutral-700"
             >
-              <Ionicons name="volume-medium-outline" size={20} color="#8A867A" />
+              <Ionicons name="volume-medium-outline" size={20} color="#77839A" />
             </Pressable>
           </View>
         </Section>

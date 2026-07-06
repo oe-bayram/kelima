@@ -24,7 +24,7 @@ export function ExamplesSection({
             {ex.textTr ? <Text variant="caption">{ex.textTr}</Text> : null}
           </View>
           <Pressable hitSlop={8} onPress={() => onSpeak(ex.textDe)}>
-            <Ionicons name="volume-medium-outline" size={18} color="#8A867A" />
+            <Ionicons name="volume-medium-outline" size={18} color="#77839A" />
           </Pressable>
         </View>
       ))}

@@ -19,7 +19,7 @@ export default function LearnScreen() {
     <View className="flex-1 bg-white dark:bg-neutral-950" style={{ paddingTop: insets.top }}>
       <View className="flex-row items-center gap-3 px-4 pb-2 pt-1">
         <Pressable hitSlop={8} onPress={() => router.back()} accessibilityRole="button">
-          <Ionicons name="close" size={26} color="#8A867A" />
+          <Ionicons name="close" size={26} color="#77839A" />
         </Pressable>
         <View className="flex-1">
           <SessionProgress index={index} total={total} />

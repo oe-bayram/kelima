@@ -77,7 +77,7 @@ export default function SignInScreen() {
                 hitSlop={8}
                 className="-ml-1 h-10 w-10 items-center justify-center self-start rounded-xl"
               >
-                <Ionicons name="chevron-back" size={24} color="#6A6760" />
+                <Ionicons name="chevron-back" size={24} color="#5A6580" />
               </Pressable>
             ) : null}
 

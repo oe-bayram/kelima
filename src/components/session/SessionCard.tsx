@@ -67,7 +67,7 @@ function CardInner({ entry }: { entry: EntryRow }) {
               {displayLemma}
             </Text>
             <Pressable hitSlop={8} onPress={() => void speak(displayLemma)}>
-              <Ionicons name="volume-medium-outline" size={26} color="#8A867A" />
+              <Ionicons name="volume-medium-outline" size={26} color="#77839A" />
             </Pressable>
           </View>
           <View className="flex-row items-center gap-2">
