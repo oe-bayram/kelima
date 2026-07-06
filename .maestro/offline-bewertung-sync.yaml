@@ -1,4 +1,4 @@
-appId: com.anonymous.kelima
+appId: de.oemerbayram.kelima
 ---
 # Offline bewerten → Outbox-Badge → online → synchronisieren.
 # Maestro hat keinen zuverlässigen Flugmodus-Schalter; die Netz-Umschaltung

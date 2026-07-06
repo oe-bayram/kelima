@@ -5,7 +5,7 @@ Starter-Flows für die manuelle/lokale E2E-Abnahme (kostenlos, ohne Cloud).
 ## Voraussetzungen
 
 - [Maestro](https://maestro.mobile.dev/) installiert (`curl -fsSL https://get.maestro.mobile.dev | bash`).
-- Laufender Android-Emulator oder angestecktes Gerät mit installiertem Dev-/Release-Build der App (`appId: com.anonymous.kelima` — bei Umbenennung des Pakets hier anpassen).
+- Laufender Android-Emulator oder angestecktes Gerät mit installiertem Dev-/Release-Build der App (`appId: de.oemerbayram.kelima` — bei Umbenennung des Pakets hier anpassen).
 - **Testkonto** in Cognito mit importierten Inhalten: mindestens ein Kapitel, das Wörter enthält.
 
 ## Ausführen

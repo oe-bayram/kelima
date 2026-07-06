@@ -18,7 +18,7 @@
         "monochromeImage": "./assets/images/android-icon-monochrome.png"
       },
       "predictiveBackGestureEnabled": false,
-      "package": "com.anonymous.kelima"
+      "package": "de.oemerbayram.kelima"
     },
     "web": {
       "output": "static",

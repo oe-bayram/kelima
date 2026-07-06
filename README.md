@@ -130,15 +130,14 @@ Diese Schritte brauchen AWS-Zugang bzw. ein Gerät und sind daher manuell durchz
 
 ### App-Identität (vor dem ersten Release anpassen)
 
-- `app.json`: `android.package` von `com.anonymous.kelima` auf eine echte Domain umstellen
-  (z. B. `com.deinname.kelima`). **Danach** `appId` in `.maestro/*.yaml` anpassen.
+- `app.json`: `android.package` = `de.oemerbayram.kelima` (echte Domain ✓). Bei Änderung
+  **danach** `appId` in `.maestro/*.yaml` anpassen.
 - `version` (SemVer) pflegen; `versionCode` beim Store-Upload monoton erhöhen.
 - App-Icon/Splash/Name in `app.json` (`assets/images/*`) final prüfen.
 
 ### Signiertes Release-APK (lokal, kostenlos)
 
 ```bash
-# Keystore EINMALIG erzeugen (sicher + außerhalb des Repos ablegen!):
 keytool -genkeypair -v -keystore kelima-release.keystore \
   -alias kelima -keyalg RSA -keysize 2048 -validity 10000
 
@@ -146,7 +145,7 @@ keytool -genkeypair -v -keystore kelima-release.keystore \
 npx expo run:android --variant release
 ```
 
-- Keystore + Passwörter **niemals** committen und sicher sichern (Verlust = keine Updates mehr).
+- Keystore + Passwörter **niemals** committen (`*.keystore`/`*.jks` sind in `.gitignore`); sicher sichern.
 - Optionale Gegenprobe im EAS-Free-Kontingent: `eas build -p android --profile preview`.
 - Auf ≥ 2 Zielgeräten installieren und die QA-Checkliste (`docs/plan/phase-5-statistik-release.md`
   §4) durchgehen (u. a. TTS auf 2 Geräten, Nutzerisolierung, Zwei-Geräte-Sync).

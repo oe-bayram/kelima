@@ -1,4 +1,4 @@
-appId: com.anonymous.kelima
+appId: de.oemerbayram.kelima
 env:
   EMAIL: test@example.com
   PASSWORD: Passwort123!
